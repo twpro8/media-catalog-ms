@@ -20,3 +20,6 @@ dev = [
     "pyright>=1.1.407",
     "ruff>=0.14.4",
 ]
+
+[tool.pyright]
+include=["app"]

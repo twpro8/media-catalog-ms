@@ -26,6 +26,6 @@ class NotFoundError(BaseError):
     detail = "Not Found Error"
 
 
-class AlreadyExistsError(BaseError):
+class ConflictError(BaseError):
     status_code = 409
     detail = "Already Exists Error"

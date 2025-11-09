@@ -10,7 +10,7 @@ from alembic import context
 from app.config import Settings
 from app.dependencies import get_settings
 from app.core.models.postgres.models import Base
-from app.core.models.postgres.models import *  # noqa
+from app.features.movie.data.models.movie import Movie  # noqa
 
 
 __SETTINGS: Settings = get_settings()

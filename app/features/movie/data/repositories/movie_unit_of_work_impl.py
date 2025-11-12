@@ -13,9 +13,21 @@ class MovieUnitOfWorkImpl(MovieUnitOfWork):
     Movie unit of work implementation.
     """
 
-    def __init__(self, session: AsyncSession, movie_repository: MovieRepository):
+    def __init__(
+        self,
+        session: AsyncSession,
+        movie_repository: MovieRepository,
+    ):
         self.session: AsyncSession = session
         self.repository: MovieRepository = movie_repository
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        if exc_type:
+            await self.session.rollback()
+        await self.session.close()
 
     async def begin(self):
         await self.session.begin()

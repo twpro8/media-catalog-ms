@@ -14,5 +14,5 @@ class MovieRepository(BaseRepository[MovieEntity]):
     """
 
     @abstractmethod
-    async def find_by_title(self, title: str) -> MovieEntity | None:
+    async def find_one_or_none(self, **filter_by) -> MovieEntity | None:
         raise NotImplementedError()

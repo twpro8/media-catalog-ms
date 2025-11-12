@@ -21,7 +21,7 @@ async def create_movie(
     response: Response,
     request: Request,
     create_movie_use_case: CreateMovieUseCase = Depends(get_create_movie_use_case),
-):
+) -> MovieReadModel:
     movie = await create_movie_use_case((data,))
     response.headers["location"] = f"{request.url.path}{movie.id_}"
     return movie

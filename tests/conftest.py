@@ -17,7 +17,10 @@ from tests.dependency_overrides.session import get_session_null_pool
 from app.core.database.postgres.database import null_pool_engine
 from app.core.models.postgres.models import Base
 from app.features.movie.data.models.movie import Movie  # noqa
-from tests.factories.movie_factories import MovieCreateModelFactory
+from tests.factories.movie_factories import (
+    MovieCreateModelFactory,
+    MovieUpdateModelFactory,
+)
 
 
 __SETTINGS: Settings = get_settings()
@@ -53,3 +56,5 @@ app.dependency_overrides[get_session] = get_session_null_pool
 
 # Register fixtures
 register_fixture(MovieCreateModelFactory, name="movie_create_model")
+register_fixture(MovieUpdateModelFactory, name="movie_update_model")
+pytest_plugins = ["tests.fixtures.movie_fixtures"]

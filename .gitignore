@@ -12,7 +12,7 @@ celerybeat-schedule
 # Virtual environments
 .venv
 .env
-.env-test
+.env.test
 
 # Personal files
 _notes

@@ -15,8 +15,6 @@ class Settings(BaseSettings):
     LOG_LEVEL: Literal["DEBUG", "INFO", "WARN", "ERROR"]
 
     APP_NAME: str = "Rest API"
-    APP_HOST: str
-    APP_PORT: int
 
     DB_HOST: str
     DB_PORT: int

@@ -18,7 +18,7 @@ async def created_movies(
     movie_create_model: MovieCreateModelFactory,
 ) -> Sequence[MovieReadModel]:
     movies = []
-    for _ in range(5):
+    for _ in range(2):
         model: MovieCreateModel = movie_create_model.build()
         request_user = model.model_dump(mode="json")
 

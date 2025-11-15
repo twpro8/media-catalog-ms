@@ -1,3 +1,5 @@
+from typing import AsyncGenerator
+
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database.postgres.database import get_session
@@ -47,11 +49,12 @@ def get_movie_repository(
     return MovieRepositoryImpl(session)
 
 
-def get_movie_unit_of_work(
+async def get_movie_unit_of_work(
     session: AsyncSession = Depends(get_session),
     movie_repository: MovieRepository = Depends(get_movie_repository),
-) -> MovieUnitOfWork:
-    return MovieUnitOfWorkImpl(session, movie_repository)
+) -> AsyncGenerator[MovieUnitOfWork, None]:
+    async with MovieUnitOfWorkImpl(session, movie_repository) as uow:
+        yield uow
 
 
 def get_create_movie_use_case(

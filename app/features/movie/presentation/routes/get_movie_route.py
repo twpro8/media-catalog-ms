@@ -12,7 +12,7 @@ from app.features.movie.dependencies import get_movie_use_case
 
 
 @router.get(
-    "/{id_}",
+    "/{id_}/",
     response_model=MovieReadModel,
     status_code=status.HTTP_200_OK,
 )

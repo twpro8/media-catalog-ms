@@ -37,22 +37,22 @@ class CreateMovieUseCaseImpl(CreateMovieUseCase):
         (data,) = args
 
         movie = MovieEntity(None, **data.model_dump())
-        existing_movie = await self.unit_of_work.repository.find_by_title(data.title)
+        existing_movie = await self.unit_of_work.repository.find_one_or_none(
+            title=data.title,
+            release_date=data.release_date,
+        )
 
         if existing_movie:
             if existing_movie.is_deleted:
                 unmarked_movie = existing_movie.unmark_as_deleted()
-                await self.unit_of_work.repository.update(unmarked_movie)
+                created_movie = await self.unit_of_work.repository.update(
+                    unmarked_movie
+                )
             else:
                 raise MovieAlreadyExistsError
         else:
-            try:
-                await self.unit_of_work.repository.create(movie)
-            except Exception:
-                await self.unit_of_work.rollback()
-                raise
+            created_movie = await self.unit_of_work.repository.create(movie)
 
         await self.unit_of_work.commit()
-        created_movie = await self.unit_of_work.repository.find_by_title(data.title)
 
         return MovieReadModel.from_entity(cast(MovieEntity, created_movie))

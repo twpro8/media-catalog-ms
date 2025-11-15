@@ -3,9 +3,10 @@ Movie query model module.
 """
 
 from datetime import datetime
+from decimal import Decimal
 from uuid import UUID
 
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Field
 
 from app.features.movie.domain.entities.movie_entity import MovieEntity
 from app.features.movie.domain.entities.movie_common_model import MovieBaseModel
@@ -17,6 +18,7 @@ class MovieReadModel(MovieBaseModel):
     """
 
     id_: UUID
+    rating: Decimal = Field(examples=["7.5"])
     is_deleted: bool
     created_at: datetime
     updated_at: datetime

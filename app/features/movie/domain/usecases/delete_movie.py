@@ -46,11 +46,8 @@ class DeleteMovieUseCaseImpl(DeleteMovieUseCase):
         except InvalidOperationError:
             raise MovieAlreadyDeletedError
 
-        try:
-            deleted_movie = await self.unit_of_work.repository.update(marked_movie)
-            await self.unit_of_work.commit()
-        except Exception:
-            await self.unit_of_work.rollback()
-            raise
+        deleted_movie = await self.unit_of_work.repository.update(marked_movie)
+
+        await self.unit_of_work.commit()
 
         return MovieReadModel.from_entity(cast(MovieEntity, deleted_movie))

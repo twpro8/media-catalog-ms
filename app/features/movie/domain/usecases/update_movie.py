@@ -39,9 +39,7 @@ class UpdateMovieUseCaseImpl(UpdateMovieUseCase):
     async def __call__(self, args: tuple[UUID, MovieUpdateModel]) -> MovieReadModel:
         id_, update_data = args
 
-        existing_movie: (
-            MovieEntity | None
-        ) = await self.unit_of_work.repository.find_by_id(id_)
+        existing_movie = await self.unit_of_work.repository.find_by_id(id_)
         if existing_movie is None:
             raise MovieNotFoundError
 
@@ -51,12 +49,9 @@ class UpdateMovieUseCaseImpl(UpdateMovieUseCase):
 
         try:
             updated_movie = await self.unit_of_work.repository.update(update_entity)
-            await self.unit_of_work.commit()
         except IntegrityError:
-            await self.unit_of_work.rollback()
             raise MovieAlreadyExistsError
-        except Exception:
-            await self.unit_of_work.rollback()
-            raise
+
+        await self.unit_of_work.commit()
 
         return MovieReadModel.from_entity(cast(MovieEntity, updated_movie))

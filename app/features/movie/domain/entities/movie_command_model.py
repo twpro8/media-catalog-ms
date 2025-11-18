@@ -24,24 +24,24 @@ class MovieUpdateModel(BaseModel):
     """
 
     title: str = Field(
-        None,
+        ...,
         min_length=1,
         max_length=256,
         examples=["Title Example"],
     )
     description: str = Field(
-        None,
+        ...,
         min_length=1,
         max_length=1024,
         examples=["Description example"],
     )
     release_date: date = Field(
-        None,
+        ...,
         ge=date(1000, 1, 1),
         le=date.today(),
         examples=[date(1988, 2, 7)],
     )
-    duration: int | None = Field(None, lt=9999, gt=0, examples=[70])
+    duration: int | None = Field(..., lt=9999, gt=0, examples=[70])
 
     model_config = ConfigDict(extra="forbid")
 

@@ -22,8 +22,7 @@ class DeleteMovieUseCase(BaseUseCase[tuple[UUID], MovieReadModel]):
     unit_of_work: MovieUnitOfWork
 
     @abstractmethod
-    async def __call__(self, args: tuple[UUID]) -> MovieReadModel:
-        raise NotImplementedError()
+    async def __call__(self, args: tuple[UUID]) -> MovieReadModel: ...
 
 
 class DeleteMovieUseCaseImpl(DeleteMovieUseCase):
@@ -37,7 +36,7 @@ class DeleteMovieUseCaseImpl(DeleteMovieUseCase):
     async def __call__(self, args: tuple[UUID]) -> MovieReadModel:
         (id_,) = args
 
-        existing_movie = await self.unit_of_work.repository.find_by_id(id_)
+        existing_movie = await self.unit_of_work.movies.find_by_id(id_)
         if existing_movie is None:
             raise MovieNotFoundError
 
@@ -46,7 +45,7 @@ class DeleteMovieUseCaseImpl(DeleteMovieUseCase):
         except InvalidOperationError:
             raise MovieAlreadyDeletedError
 
-        deleted_movie = await self.unit_of_work.repository.update(marked_movie)
+        deleted_movie = await self.unit_of_work.movies.update(marked_movie)
 
         await self.unit_of_work.commit()
 

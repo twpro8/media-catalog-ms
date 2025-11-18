@@ -19,7 +19,7 @@ class MovieUnitOfWorkImpl(MovieUnitOfWork):
         movie_repository: MovieRepository,
     ):
         self.session: AsyncSession = session
-        self.repository: MovieRepository = movie_repository
+        self.movies: MovieRepository = movie_repository
 
     async def __aenter__(self):
         return self
@@ -28,9 +28,6 @@ class MovieUnitOfWorkImpl(MovieUnitOfWork):
         if exc_type:
             await self.session.rollback()
         await self.session.close()
-
-    async def begin(self):
-        await self.session.begin()
 
     async def commit(self):
         await self.session.commit()

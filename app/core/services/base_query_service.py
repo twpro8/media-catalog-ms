@@ -13,9 +13,7 @@ class QueryService[_T](ABC):
     """
 
     @abstractmethod
-    async def find_by_id(self, id_: UUID) -> _T | None:
-        raise NotImplementedError()
+    async def find_by_id(self, id_: UUID) -> _T | None: ...
 
     @abstractmethod
-    async def findall(self) -> Sequence[_T]:
-        raise NotImplementedError()
+    async def findall(self) -> Sequence[_T]: ...

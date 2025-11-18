@@ -16,8 +16,7 @@ class GetMoviesUseCase(BaseUseCase[None, Sequence[MovieReadModel]]):
 
     service = MovieQueryService
 
-    async def __call__(self, args: None) -> Sequence[MovieReadModel]:
-        raise NotImplementedError()
+    async def __call__(self, args: None) -> Sequence[MovieReadModel]: ...
 
 
 class GetMoviesUseCaseImpl(GetMoviesUseCase):

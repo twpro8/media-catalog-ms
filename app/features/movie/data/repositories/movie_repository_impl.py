@@ -2,6 +2,7 @@
 Movie repository implementation module.
 """
 
+from datetime import date
 from typing import Sequence
 from uuid import UUID
 
@@ -21,16 +22,6 @@ class MovieRepositoryImpl(MovieRepository):
 
     def __init__(self, session: AsyncSession):
         self.session: AsyncSession = session
-
-    async def find_one_or_none(self, **filter_by) -> MovieEntity | None:
-        query = select(Movie).filter_by(**filter_by)
-
-        try:
-            result: Movie = (await self.session.execute(query)).scalar_one()
-        except NoResultFound:
-            return None
-
-        return result.to_entity()
 
     async def create(self, entity: MovieEntity) -> MovieEntity:
         movie = Movie.from_entity(entity)
@@ -60,6 +51,18 @@ class MovieRepositoryImpl(MovieRepository):
             return None
 
         return result.to_entity()
+
+    async def find_by_title_and_date(
+        self, title: str, release_date: date
+    ) -> MovieEntity | None:
+        query = select(Movie).where(
+            Movie.title == title,
+            Movie.release_date == release_date,
+        )
+
+        result: Movie | None = await self.session.scalar(query)
+
+        return result.to_entity() if result else None
 
     async def update(self, entity: MovieEntity) -> MovieEntity:
         movie = Movie.from_entity(entity)

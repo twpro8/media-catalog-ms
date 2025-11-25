@@ -3,6 +3,7 @@ Main module.
 """
 
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 
 from app.config import Settings
 from app.dependencies import get_settings
@@ -16,11 +17,12 @@ __SETTINGS: Settings = get_settings()
 
 
 app = FastAPI(title=__SETTINGS.APP_NAME)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.add_exception_handler(BaseError, app_exception_handler)
 app.include_router(movie_router)
 app.include_router(show_router)
-
-
-@app.get("/hello")
-async def get_hello(name: str):
-    return {"status": "OK", "message": f"Hello, {name}!"}

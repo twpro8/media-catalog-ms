@@ -16,7 +16,6 @@ from app.core.database.postgres.database import get_session
 from tests.dependency_overrides.session import get_session_null_pool
 from app.core.database.postgres.database import null_pool_engine
 from app.core.models.postgres.models import Base
-from app.features.movie.data.models.movie import Movie  # noqa
 from tests.factories.movie_factories import (
     MovieCreateModelFactory,
     MovieUpdateModelFactory,
@@ -25,6 +24,11 @@ from tests.factories.show_factories import (
     ShowCreateModelFactory,
     ShowUpdateModelFactory,
 )
+
+# Initializing models
+from app.features.movie.data.models.movie import Movie
+from app.features.show.data.models.show import Show
+from app.features.season.data.models.season import Season
 
 
 __SETTINGS: Settings = get_settings()

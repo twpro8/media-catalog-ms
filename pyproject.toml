@@ -31,3 +31,4 @@ include=["app", "tests"]
 
 [tool.ruff.lint]
 per-file-ignores = { "__init__.py" = ["F401"] }
+exclude = ["migrations/env.py", "tests/conftest.py"]

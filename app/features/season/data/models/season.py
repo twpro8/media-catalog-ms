@@ -13,6 +13,7 @@ from app.core.models.postgres.models import Base
 
 if TYPE_CHECKING:
     from app.features.show.data.models.show import Show
+    from app.features.episode.data.models.episode import Episode
 
 
 class Season(Base):
@@ -34,6 +35,7 @@ class Season(Base):
 
     # Relationships
     show: Mapped["Show"] = relationship(back_populates="seasons")
+    episodes: Mapped[list["Episode"]] = relationship(back_populates="season")
 
     def to_dict(self):
         return {

@@ -11,5 +11,4 @@ class BaseUseCase[_T, _R](ABC):
     """
 
     @abstractmethod
-    async def __call__(self, args: _T) -> _R:
-        raise NotImplementedError()
+    async def __call__(self, args: _T) -> _R: ...

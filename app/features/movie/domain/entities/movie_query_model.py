@@ -27,6 +27,12 @@ class MovieReadModel(MovieBaseModel):
 
     @staticmethod
     def from_entity(entity: MovieEntity) -> "MovieReadModel":
+        assert entity.id_ is not None
+        assert entity.rating is not None
+        assert entity.is_deleted is not None
+        assert entity.created_at is not None
+        assert entity.updated_at is not None
+
         return MovieReadModel(
             id_=entity.id_,
             title=entity.title,

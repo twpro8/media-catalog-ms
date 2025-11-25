@@ -26,3 +26,5 @@ class Base(DeclarativeBase):
         server_default=text("TIMEZONE('UTC', now())"),
     )
     is_deleted: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    def to_dict(self) -> dict: ...

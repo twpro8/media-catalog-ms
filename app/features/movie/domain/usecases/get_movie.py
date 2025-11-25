@@ -19,8 +19,7 @@ class GetMovieUseCase(BaseUseCase[tuple[UUID], MovieReadModel]):
     service: MovieQueryService
 
     @abstractmethod
-    async def __call__(self, args: tuple[UUID]) -> MovieReadModel:
-        raise NotImplementedError()
+    async def __call__(self, args: tuple[UUID]) -> MovieReadModel: ...
 
 
 class GetMovieUseCaseImpl(GetMovieUseCase):

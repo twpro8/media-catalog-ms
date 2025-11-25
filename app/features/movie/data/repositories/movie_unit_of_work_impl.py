@@ -4,11 +4,12 @@ Movie unit of work implementation module.
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.unit_of_work.sqlalchemy.unit_of_work import SQLAlchemyUnitOfWork
 from app.features.movie.domain.repositories.movie_unit_of_work import MovieUnitOfWork
 from app.features.movie.domain.repositories.movie_repository import MovieRepository
 
 
-class MovieUnitOfWorkImpl(MovieUnitOfWork):
+class MovieUnitOfWorkImpl(SQLAlchemyUnitOfWork, MovieUnitOfWork):
     """
     Movie unit of work implementation.
     """
@@ -18,22 +19,5 @@ class MovieUnitOfWorkImpl(MovieUnitOfWork):
         session: AsyncSession,
         movie_repository: MovieRepository,
     ):
-        self.session: AsyncSession = session
-        self.repository: MovieRepository = movie_repository
-
-    async def __aenter__(self):
-        return self
-
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        if exc_type:
-            await self.session.rollback()
-        await self.session.close()
-
-    async def begin(self):
-        await self.session.begin()
-
-    async def commit(self):
-        await self.session.commit()
-
-    async def rollback(self):
-        await self.session.rollback()
+        super().__init__(session)
+        self.movies: MovieRepository = movie_repository

@@ -21,8 +21,7 @@ class CreateMovieUseCase(BaseUseCase[tuple[MovieCreateModel], MovieReadModel]):
     unit_of_work: MovieUnitOfWork
 
     @abstractmethod
-    async def __call__(self, args: tuple[MovieCreateModel]) -> MovieReadModel:
-        raise NotImplementedError()
+    async def __call__(self, args: tuple[MovieCreateModel]) -> MovieReadModel: ...
 
 
 class CreateMovieUseCaseImpl(CreateMovieUseCase):
@@ -37,7 +36,7 @@ class CreateMovieUseCaseImpl(CreateMovieUseCase):
         (data,) = args
 
         movie = MovieEntity(None, **data.model_dump())
-        existing_movie = await self.unit_of_work.repository.find_one_or_none(
+        existing_movie = await self.unit_of_work.movies.find_by_title_and_date(
             title=data.title,
             release_date=data.release_date,
         )
@@ -45,13 +44,11 @@ class CreateMovieUseCaseImpl(CreateMovieUseCase):
         if existing_movie:
             if existing_movie.is_deleted:
                 unmarked_movie = existing_movie.unmark_as_deleted()
-                created_movie = await self.unit_of_work.repository.update(
-                    unmarked_movie
-                )
+                created_movie = await self.unit_of_work.movies.update(unmarked_movie)
             else:
                 raise MovieAlreadyExistsError
         else:
-            created_movie = await self.unit_of_work.repository.create(movie)
+            created_movie = await self.unit_of_work.movies.create(movie)
 
         await self.unit_of_work.commit()
 

@@ -24,8 +24,7 @@ class UpdateMovieUseCase(BaseUseCase[tuple[UUID, MovieUpdateModel], MovieReadMod
     unit_of_work: MovieUnitOfWork
 
     @abstractmethod
-    async def __call__(self, args: tuple[UUID, MovieUpdateModel]) -> MovieReadModel:
-        raise NotImplementedError()
+    async def __call__(self, args: tuple[UUID, MovieUpdateModel]) -> MovieReadModel: ...
 
 
 class UpdateMovieUseCaseImpl(UpdateMovieUseCase):
@@ -39,7 +38,7 @@ class UpdateMovieUseCaseImpl(UpdateMovieUseCase):
     async def __call__(self, args: tuple[UUID, MovieUpdateModel]) -> MovieReadModel:
         id_, update_data = args
 
-        existing_movie = await self.unit_of_work.repository.find_by_id(id_)
+        existing_movie = await self.unit_of_work.movies.find_by_id(id_)
         if existing_movie is None:
             raise MovieNotFoundError
 
@@ -48,7 +47,7 @@ class UpdateMovieUseCaseImpl(UpdateMovieUseCase):
         )
 
         try:
-            updated_movie = await self.unit_of_work.repository.update(update_entity)
+            updated_movie = await self.unit_of_work.movies.update(update_entity)
         except IntegrityError:
             raise MovieAlreadyExistsError
 

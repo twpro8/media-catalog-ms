@@ -13,21 +13,16 @@ class BaseRepository[_T](ABC):
     """
 
     @abstractmethod
-    async def create(self, entity: _T) -> _T:
-        raise NotImplementedError()
+    async def create(self, entity: _T) -> _T: ...
 
     @abstractmethod
-    async def findall(self) -> Sequence[_T]:
-        raise NotImplementedError()
+    async def findall(self) -> Sequence[_T]: ...
 
     @abstractmethod
-    async def find_by_id(self, id_: UUID) -> _T | None:
-        raise NotImplementedError()
+    async def find_by_id(self, id_: UUID) -> _T | None: ...
 
     @abstractmethod
-    async def update(self, entity: _T) -> _T:
-        raise NotImplementedError()
+    async def update(self, entity: _T) -> _T: ...
 
     @abstractmethod
-    async def delete_by_id(self, id_: UUID) -> _T:
-        raise NotImplementedError()
+    async def delete_by_id(self, id_: UUID) -> _T: ...

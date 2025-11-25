@@ -21,6 +21,10 @@ from tests.factories.movie_factories import (
     MovieCreateModelFactory,
     MovieUpdateModelFactory,
 )
+from tests.factories.show_factories import (
+    ShowCreateModelFactory,
+    ShowUpdateModelFactory,
+)
 
 
 __SETTINGS: Settings = get_settings()
@@ -57,4 +61,9 @@ app.dependency_overrides[get_session] = get_session_null_pool
 # Register fixtures
 register_fixture(MovieCreateModelFactory, name="movie_create_model")
 register_fixture(MovieUpdateModelFactory, name="movie_update_model")
-pytest_plugins = ["tests.fixtures.movie_fixtures"]
+register_fixture(ShowCreateModelFactory, name="show_create_model")
+register_fixture(ShowUpdateModelFactory, name="show_update_model")
+pytest_plugins = [
+    "tests.fixtures.movie_fixtures",
+    "tests.fixtures.show_fixtures",
+]

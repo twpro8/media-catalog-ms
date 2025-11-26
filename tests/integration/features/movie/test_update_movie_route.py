@@ -12,7 +12,6 @@ from app.features.movie.domain.entities.movie_query_model import MovieReadModel
 from tests.factories.movie_factories import MovieUpdateModelFactory
 
 
-@pytest.mark.update_movie
 class TestUpdateMovie:
     """
     API tests for updating movies.
@@ -39,9 +38,9 @@ class TestUpdateMovie:
         id_ = self.created_movies[run % 2].id_
 
         model: MovieUpdateModel = self.movie_update_model.build()
-        request_user = model.model_dump(mode="json")
+        request_movie = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_user)
+        response = await self.ac.patch(f"{self.path}{id_}/", json=request_movie)
         assert response.status_code == 200
 
         response_json = response.json()
@@ -69,10 +68,10 @@ class TestUpdateMovie:
         id_ = self.created_movies[0].id_
 
         model: MovieUpdateModel = self.movie_update_model.build()
-        request_user = model.model_dump(mode="json")
-        request_user |= {field: value}
+        request_movie = model.model_dump(mode="json")
+        request_movie |= {field: value}
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_user)
+        response = await self.ac.patch(f"{self.path}{id_}/", json=request_movie)
         assert response.status_code == 422
 
         response_detail = response.json()["detail"]
@@ -90,9 +89,9 @@ class TestUpdateMovie:
         id_ = uuid7()
 
         model: MovieUpdateModel = self.movie_update_model.build()
-        request_user = model.model_dump(mode="json")
+        request_movie = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_user)
+        response = await self.ac.patch(f"{self.path}{id_}/", json=request_movie)
         assert response.status_code == 404
 
         assert "detail" in response.json()
@@ -106,9 +105,9 @@ class TestUpdateMovie:
         movie_2 = self.created_movies[1]
 
         model = MovieUpdateModel.model_validate(movie_1, extra="ignore")
-        request_user = model.model_dump(mode="json")
+        request_movie = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{movie_2.id_}/", json=request_user)
+        response = await self.ac.patch(f"{self.path}{movie_2.id_}/", json=request_movie)
         assert response.status_code == 409
 
         assert "detail" in response.json()

@@ -10,8 +10,9 @@ from alembic import context
 from app.config import Settings
 from app.dependencies import get_settings
 from app.core.models.postgres.models import Base
-from app.features.movie.data.models.movie import Movie  # noqa
-from app.features.show.data.models.show import Show  # noqa
+
+# Initializing models
+from app.core.models import *
 
 
 __SETTINGS: Settings = get_settings()

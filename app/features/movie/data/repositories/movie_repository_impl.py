@@ -3,8 +3,12 @@ Movie repository implementation module.
 """
 
 from datetime import date
-from sqlalchemy import select
 
+from sqlalchemy import select
+from sqlalchemy.exc import NoResultFound, IntegrityError
+
+from app.core.error.base_exception import BaseError
+from app.core.error.movie_exception import MovieAlreadyExistsError, MovieNotFoundError
 from app.core.repositories.sqlalchemy.repository import SQLAlchemyRepository
 from app.features.movie.data.mappers.movie_data_mapper import MovieDataMapper
 from app.features.movie.domain.repositories.movie_repository import MovieRepository
@@ -19,6 +23,16 @@ class MovieRepositoryImpl(SQLAlchemyRepository[Movie, MovieEntity], MovieReposit
 
     model = Movie
     mapper = MovieDataMapper
+
+    async def update(self, entity: MovieEntity) -> MovieEntity:
+        try:
+            return await super().update(entity)
+        except NoResultFound as e:
+            raise MovieNotFoundError from e
+        except IntegrityError as e:
+            raise MovieAlreadyExistsError from e
+        except Exception as e:
+            raise BaseError("Internal database error") from e
 
     async def find_by_title_and_date(
         self, title: str, release_date: date

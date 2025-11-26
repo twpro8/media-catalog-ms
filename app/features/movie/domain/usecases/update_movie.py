@@ -6,9 +6,7 @@ from abc import abstractmethod
 from typing import cast
 from uuid import UUID
 
-from sqlalchemy.exc import IntegrityError
-
-from app.core.error.movie_exception import MovieAlreadyExistsError, MovieNotFoundError
+from app.core.error.movie_exception import MovieNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.movie.domain.entities.movie_command_model import MovieUpdateModel
 from app.features.movie.domain.entities.movie_entity import MovieEntity
@@ -39,18 +37,14 @@ class UpdateMovieUseCaseImpl(UpdateMovieUseCase):
         id_, update_data = args
 
         existing_movie = await self.unit_of_work.movies.find_by_id(id_)
-        if existing_movie is None:
+        if not existing_movie or existing_movie.is_deleted:
             raise MovieNotFoundError
 
         update_entity = existing_movie.update_entity(
             update_data, lambda movie_data: update_data.model_dump(exclude_unset=True)
         )
 
-        try:
-            updated_movie = await self.unit_of_work.movies.update(update_entity)
-        except IntegrityError:
-            raise MovieAlreadyExistsError
-
+        updated_movie = await self.unit_of_work.movies.update(update_entity)
         await self.unit_of_work.commit()
 
         return MovieReadModel.from_entity(cast(MovieEntity, updated_movie))

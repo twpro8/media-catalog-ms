@@ -12,7 +12,6 @@ from app.features.show.domain.entities.show_query_model import ShowReadModel
 from tests.factories.show_factories import ShowUpdateModelFactory
 
 
-@pytest.mark.update_show
 class TestUpdateShow:
     """
     API tests for updating shows.
@@ -39,9 +38,9 @@ class TestUpdateShow:
         id_ = self.created_shows[run % 2].id_
 
         model: ShowUpdateModel = self.show_update_model.build()
-        request_user = model.model_dump(mode="json")
+        request_show = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_user)
+        response = await self.ac.patch(f"{self.path}{id_}/", json=request_show)
         assert response.status_code == 200
 
         response_json = response.json()
@@ -67,10 +66,10 @@ class TestUpdateShow:
         id_ = self.created_shows[0].id_
 
         model: ShowUpdateModel = self.show_update_model.build()
-        request_user = model.model_dump(mode="json")
-        request_user |= {field: value}
+        request_show = model.model_dump(mode="json")
+        request_show |= {field: value}
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_user)
+        response = await self.ac.patch(f"{self.path}{id_}/", json=request_show)
         assert response.status_code == 422
 
         response_detail = response.json()["detail"]
@@ -88,9 +87,9 @@ class TestUpdateShow:
         id_ = uuid7()
 
         model: ShowUpdateModel = self.show_update_model.build()
-        request_user = model.model_dump(mode="json")
+        request_show = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_user)
+        response = await self.ac.patch(f"{self.path}{id_}/", json=request_show)
         assert response.status_code == 404
 
         assert "detail" in response.json()
@@ -104,9 +103,9 @@ class TestUpdateShow:
         show_2 = self.created_shows[1]
 
         model = ShowUpdateModel.model_validate(show_1, extra="ignore")
-        request_user = model.model_dump(mode="json")
+        request_show = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{show_2.id_}/", json=request_user)
+        response = await self.ac.patch(f"{self.path}{show_2.id_}/", json=request_show)
         assert response.status_code == 409
 
         assert "detail" in response.json()

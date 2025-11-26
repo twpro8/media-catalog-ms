@@ -10,7 +10,6 @@ from httpx import AsyncClient
 from app.features.show.domain.entities.show_query_model import ShowReadModel
 
 
-@pytest.mark.delete_show
 class TestDeleteShow:
     """
     API tests for deleting show.

@@ -10,7 +10,6 @@ from httpx import AsyncClient
 from app.features.movie.domain.entities.movie_query_model import MovieReadModel
 
 
-@pytest.mark.delete_movie
 class TestDeleteMovie:
     """
     API tests for deleting movie.

@@ -4,12 +4,16 @@ Show orm model module.
 
 from decimal import Decimal
 from datetime import date
+from typing import TYPE_CHECKING
 
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import DECIMAL, String, UniqueConstraint, CheckConstraint
 
 from app.core.models.postgres.models import Base
 from app.features.show.domain.entities.show_query_model import ShowReadModel
+
+if TYPE_CHECKING:
+    from app.features.season.data.models.season import Season
 
 
 class Show(Base):
@@ -23,6 +27,9 @@ class Show(Base):
     description: Mapped[str] = mapped_column(String(length=1024))
     release_date: Mapped[date]
     rating: Mapped[Decimal] = mapped_column(DECIMAL(3, 1), default=Decimal("0.0"))
+
+    # Relationships
+    seasons: Mapped[list["Season"]] = relationship(back_populates="show")
 
     def to_dict(self):
         return {

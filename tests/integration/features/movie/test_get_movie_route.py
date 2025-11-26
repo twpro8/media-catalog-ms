@@ -10,7 +10,6 @@ from httpx import AsyncClient
 from app.features.movie.domain.entities.movie_query_model import MovieReadModel
 
 
-@pytest.mark.get_movie
 class TestGetMovie:
     """
     API tests for getting a movie by ID.

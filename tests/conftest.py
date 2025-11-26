@@ -68,4 +68,5 @@ register_fixture(ShowUpdateModelFactory, name="show_update_model")
 pytest_plugins = [
     "tests.fixtures.movie_fixtures",
     "tests.fixtures.show_fixtures",
+    "tests.fixtures.season_fixtures",
 ]

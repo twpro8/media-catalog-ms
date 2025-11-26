@@ -10,7 +10,6 @@ from httpx import AsyncClient
 from app.features.show.domain.entities.show_query_model import ShowReadModel
 
 
-@pytest.mark.get_show
 class TestGetShow:
     """
     API tests for getting a show by ID.

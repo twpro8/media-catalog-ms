@@ -8,7 +8,6 @@ from httpx import AsyncClient
 from app.features.movie.domain.entities.movie_query_model import MovieReadModel
 
 
-@pytest.mark.get_movies
 class TestGetMovies:
     """
     API tests for getting movies.

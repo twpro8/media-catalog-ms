@@ -8,7 +8,6 @@ from httpx import AsyncClient
 from app.features.show.domain.entities.show_query_model import ShowReadModel
 
 
-@pytest.mark.get_shows
 class TestGetShows:
     """
     API tests for getting shows.

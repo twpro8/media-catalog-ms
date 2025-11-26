@@ -16,7 +16,6 @@ from app.features.show.domain.entities.show_query_model import ShowReadModel
 fake = faker.Faker()
 
 
-@pytest.mark.create_show
 class TestCreateShow:
     """
     API tests for creating shows.
@@ -39,9 +38,9 @@ class TestCreateShow:
         """
 
         model: ShowCreateModel = self.show_create_model.build()
-        request_user = model.model_dump(mode="json")
+        request_show = model.model_dump(mode="json")
 
-        response = await self.ac.post(self.path, json=request_user)
+        response = await self.ac.post(self.path, json=request_show)
         assert response.status_code == 201
 
         response_json = response.json()
@@ -63,14 +62,14 @@ class TestCreateShow:
         Invalid show creation should return 422.
         """
 
-        request_user = {
+        request_show = {
             "title": fake.word(),
             "description": fake.word(),
             "release_date": date.today().isoformat(),
             field: value,
         }
 
-        response = await self.ac.post(self.path, json=request_user)
+        response = await self.ac.post(self.path, json=request_show)
         assert response.status_code == 422
 
         response_detail = response.json()["detail"]
@@ -86,11 +85,11 @@ class TestCreateShow:
         """
 
         model: ShowCreateModel = self.show_create_model.build()
-        request_user = model.model_dump(mode="json")
+        request_show = model.model_dump(mode="json")
 
-        response = await self.ac.post(self.path, json=request_user)
+        response = await self.ac.post(self.path, json=request_show)
         assert response.status_code == 201
 
-        response = await self.ac.post(self.path, json=request_user)
+        response = await self.ac.post(self.path, json=request_show)
         assert response.status_code == 409
         assert "detail" in response.json()

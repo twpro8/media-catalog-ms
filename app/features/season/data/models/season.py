@@ -10,6 +10,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import UniqueConstraint, ForeignKey, String
 
 from app.core.models.postgres.models import Base
+from app.features.season.domain.entities.season_query_model import SeasonReadModel
 
 if TYPE_CHECKING:
     from app.features.show.data.models.show import Show
@@ -40,9 +41,21 @@ class Season(Base):
     def to_dict(self):
         return {
             "id_": self.id_,
+            "show_id": self.show_id,
             "title": self.title,
             "season_number": self.season_number,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "is_deleted": self.is_deleted,
         }
+
+    def to_read_model(self) -> SeasonReadModel:
+        return SeasonReadModel(
+            id_=self.id_,
+            show_id=self.show_id,
+            title=self.title,
+            season_number=self.season_number,
+            created_at=self.created_at,
+            updated_at=self.updated_at,
+            is_deleted=self.is_deleted,
+        )

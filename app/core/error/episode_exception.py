@@ -11,3 +11,7 @@ class EpisodeNotFoundError(NotFoundError):
 
 class EpisodeAlreadyExistsError(ConflictError):
     detail = "Episode already exists"
+
+
+class EpisodeAlreadyDeletedError(ConflictError):
+    detail = "Episode already deleted"

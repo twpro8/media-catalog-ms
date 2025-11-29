@@ -11,6 +11,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, UniqueConstraint, ForeignKey
 
 from app.core.models.postgres.models import Base
+from app.features.episode.domain.entities.episode_query_model import EpisodeReadModel
 
 if TYPE_CHECKING:
     from app.features.season.data.models.season import Season
@@ -50,3 +51,16 @@ class Episode(Base):
             "updated_at": self.updated_at,
             "is_deleted": self.is_deleted,
         }
+
+    def to_read_model(self) -> EpisodeReadModel:
+        return EpisodeReadModel(
+            id_=self.id_,
+            season_id=self.season_id,
+            title=self.title,
+            episode_number=self.episode_number,
+            duration=self.duration,
+            release_date=self.release_date,
+            created_at=self.created_at,
+            updated_at=self.updated_at,
+            is_deleted=self.is_deleted,
+        )

@@ -24,7 +24,7 @@ class EpisodeReadModel(EpisodeBaseModel):
         assert entity.id_ is not None
         assert entity.created_at is not None
         assert entity.updated_at is not None
-        assert entity.is_deleted is False
+        assert entity.is_deleted is not None
 
         return EpisodeReadModel(
             id_=entity.id_,

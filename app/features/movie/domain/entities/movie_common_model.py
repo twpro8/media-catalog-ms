@@ -23,6 +23,8 @@ class MovieBaseModel(BaseModel):
         examples=["Description example"],
     )
     release_date: date = Field(
-        ge=date(1000, 1, 1), le=date.today(), examples=[date(1988, 2, 7)]
+        ge=date(1000, 1, 1),
+        le=date.today(),
+        examples=[date(1988, 2, 7)],
     )
-    duration: int | None = Field(lt=9999, gt=0, examples=[70])
+    duration: int | None = Field(None, lt=9999, gt=0, examples=[70])

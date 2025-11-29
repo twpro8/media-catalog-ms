@@ -14,7 +14,7 @@ from app.features.show.domain.entities.show_common_model import ShowBaseModel
 
 class ShowReadModel(ShowBaseModel):
     """
-    ShowReadModel represents data structure as a read model
+    ShowReadModel represents data structure as a read model.
     """
 
     id_: UUID

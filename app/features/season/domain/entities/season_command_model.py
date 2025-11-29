@@ -21,14 +21,14 @@ class SeasonUpdateModel(BaseModel):
     SeasonUpdateModel represents a write model to update a season.
     """
 
-    title: str | None = Field(
-        None,
+    title: str = Field(
+        ...,
         min_length=1,
         max_length=256,
         examples=["Title Example"],
     )
-    season_number: int | None = Field(
-        None,
+    season_number: int = Field(
+        ...,
         gt=0,
         lt=9999,
         examples=[1],

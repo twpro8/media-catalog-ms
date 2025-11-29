@@ -23,5 +23,7 @@ class ShowBaseModel(BaseModel):
         examples=["Description example"],
     )
     release_date: date = Field(
-        ge=date(1000, 1, 1), le=date.today(), examples=[date(1988, 2, 7)]
+        ge=date(1000, 1, 1),
+        le=date.today(),
+        examples=[date(1988, 2, 7)],
     )

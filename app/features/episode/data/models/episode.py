@@ -14,7 +14,6 @@ from app.core.models.postgres.models import Base
 
 if TYPE_CHECKING:
     from app.features.season.data.models.season import Season
-    from app.features.show.data.models.show import Show
 
 
 class Episode(Base):
@@ -27,10 +26,6 @@ class Episode(Base):
         ),
     )
 
-    show_id: Mapped[UUID] = mapped_column(
-        PG_UUID(as_uuid=True),
-        ForeignKey("shows.id_", ondelete="CASCADE"),
-    )
     season_id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),
         ForeignKey("seasons.id_", ondelete="CASCADE"),
@@ -41,12 +36,12 @@ class Episode(Base):
     release_date: Mapped[date]
 
     # Relationships
-    show: Mapped["Show"] = relationship()
     season: Mapped["Season"] = relationship(back_populates="episodes")
 
     def to_dict(self):
         return {
             "id_": self.id_,
+            "season_id": self.season_id,
             "title": self.title,
             "episode_number": self.episode_number,
             "duration": self.duration,

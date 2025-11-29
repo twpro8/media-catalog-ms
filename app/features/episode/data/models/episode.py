@@ -2,13 +2,13 @@
 Episode orm model module.
 """
 
-from datetime import date
+from datetime import date, datetime
 from typing import TYPE_CHECKING
 from uuid import UUID
 
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, UniqueConstraint, ForeignKey
+from sqlalchemy import String, UniqueConstraint, ForeignKey, text, DateTime, Boolean
 
 from app.core.models.postgres.models import Base
 from app.features.episode.domain.entities.episode_query_model import EpisodeReadModel
@@ -27,6 +27,11 @@ class Episode(Base):
         ),
     )
 
+    id_: Mapped[UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("uuidv7()"),
+    )
     season_id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),
         ForeignKey("seasons.id_", ondelete="CASCADE"),
@@ -35,6 +40,16 @@ class Episode(Base):
     episode_number: Mapped[int]
     duration: Mapped[int | None]
     release_date: Mapped[date]
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("TIMEZONE('UTC', now())"),
+    )
+    # Add triggers on update updated_at for each entity.
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("TIMEZONE('UTC', now())"),
+    )
+    is_deleted: Mapped[bool] = mapped_column(Boolean, default=False)
 
     # Relationships
     season: Mapped["Season"] = relationship(back_populates="episodes")

@@ -3,17 +3,28 @@ Show orm model module.
 """
 
 from decimal import Decimal
-from datetime import date
+from datetime import date, datetime
 from typing import TYPE_CHECKING
+from uuid import UUID
 
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import DECIMAL, String, UniqueConstraint, CheckConstraint
+from sqlalchemy import (
+    DECIMAL,
+    String,
+    UniqueConstraint,
+    CheckConstraint,
+    DateTime,
+    text,
+    Boolean,
+)
 
 from app.core.models.postgres.models import Base
 from app.features.show.domain.entities.show_query_model import ShowReadModel
 
 if TYPE_CHECKING:
     from app.features.season.data.models.season import Season
+    from app.features.director.data.models.director import Director
 
 
 class Show(Base):
@@ -23,13 +34,32 @@ class Show(Base):
         CheckConstraint("rating >= 0 AND rating <= 10"),
     )
 
+    id_: Mapped[UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("uuidv7()"),
+    )
     title: Mapped[str] = mapped_column(String(length=256))
     description: Mapped[str] = mapped_column(String(length=1024))
     release_date: Mapped[date]
     rating: Mapped[Decimal] = mapped_column(DECIMAL(3, 1), default=Decimal("0.0"))
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("TIMEZONE('UTC', now())"),
+    )
+    # Add a trigger on update updated_at for this entity.
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("TIMEZONE('UTC', now())"),
+    )
+    is_deleted: Mapped[bool] = mapped_column(Boolean, default=False)
 
     # Relationships
     seasons: Mapped[list["Season"]] = relationship(back_populates="show")
+    directors: Mapped[list["Director"]] = relationship(
+        secondary="show_director_associations",
+        back_populates="shows",
+    )
 
     def to_dict(self):
         return {

@@ -1,4 +1,8 @@
-from typing import AsyncGenerator
+"""
+Movie dependencies module.
+"""
+
+from typing import AsyncGenerator, Annotated
 
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -38,50 +42,50 @@ from app.features.movie.domain.usecases.update_movie import (
 
 
 def get_movie_query_service(
-    session: AsyncSession = Depends(get_session),
+    session: Annotated[AsyncSession, Depends(get_session)],
 ) -> MovieQueryService:
     return MovieQueryServiceImpl(session)
 
 
 def get_movie_repository(
-    session: AsyncSession = Depends(get_session),
+    session: Annotated[AsyncSession, Depends(get_session)],
 ) -> MovieRepository:
     return MovieRepositoryImpl(session)
 
 
 async def get_movie_unit_of_work(
-    session: AsyncSession = Depends(get_session),
-    movie_repository: MovieRepository = Depends(get_movie_repository),
-) -> AsyncGenerator[MovieUnitOfWork, None]:
+    session: Annotated[AsyncSession, Depends(get_session)],
+    movie_repository: Annotated[MovieRepository, Depends(get_movie_repository)],
+) -> AsyncGenerator[MovieUnitOfWork]:
     async with MovieUnitOfWorkImpl(session, movie_repository) as uow:
         yield uow
 
 
 def get_create_movie_use_case(
-    unit_of_work: MovieUnitOfWork = Depends(get_movie_unit_of_work),
+    unit_of_work: Annotated[MovieUnitOfWork, Depends(get_movie_unit_of_work)],
 ) -> CreateMovieUseCase:
     return CreateMovieUseCaseImpl(unit_of_work)
 
 
 def get_movie_use_case(
-    movie_query_service: MovieQueryService = Depends(get_movie_query_service),
+    movie_query_service: Annotated[MovieQueryService, Depends(get_movie_query_service)],
 ) -> GetMovieUseCase:
     return GetMovieUseCaseImpl(movie_query_service)
 
 
 def get_movies_use_case(
-    movie_query_service: MovieQueryService = Depends(get_movie_query_service),
+    movie_query_service: Annotated[MovieQueryService, Depends(get_movie_query_service)],
 ) -> GetMoviesUseCase:
     return GetMoviesUseCaseImpl(movie_query_service)
 
 
 def get_update_movie_use_case(
-    unit_of_work: MovieUnitOfWork = Depends(get_movie_unit_of_work),
+    unit_of_work: Annotated[MovieUnitOfWork, Depends(get_movie_unit_of_work)],
 ) -> UpdateMovieUseCase:
     return UpdateMovieUseCaseImpl(unit_of_work)
 
 
 def get_delete_movie_use_case(
-    unit_of_work: MovieUnitOfWork = Depends(get_movie_unit_of_work),
+    unit_of_work: Annotated[MovieUnitOfWork, Depends(get_movie_unit_of_work)],
 ) -> DeleteMovieUseCase:
     return DeleteMovieUseCaseImpl(unit_of_work)

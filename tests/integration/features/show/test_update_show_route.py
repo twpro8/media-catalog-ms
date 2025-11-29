@@ -51,10 +51,13 @@ class TestUpdateShow:
         [
             ("title", ""),
             ("title", "t" * 257),
+            ("title", None),
             ("description", ""),
             ("description", "d" * 1025),
+            ("description", None),
             ("release_date", "999-01-01"),
             ("release_date", "2100-01-01"),
+            ("release_date", None),
             ("extra", "Unknow"),
         ],
     )

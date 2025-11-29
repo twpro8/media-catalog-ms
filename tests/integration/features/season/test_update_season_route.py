@@ -56,8 +56,10 @@ class TestUpdateSeason:
         [
             ("title", ""),
             ("title", "t" * 257),
+            ("title", None),
             ("season_number", 0),
             ("season_number", 10000),
+            ("season_number", None),
             ("extra", "Unknow"),
         ],
     )

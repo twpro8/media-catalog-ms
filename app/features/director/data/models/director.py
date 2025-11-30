@@ -11,6 +11,7 @@ from sqlalchemy import String, UniqueConstraint, text, DateTime, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.models.postgres.models import Base
+from app.features.director.domain.entities.director_query_model import DirectorReadModel
 
 if TYPE_CHECKING:
     from app.features.movie.data.models.movie import Movie
@@ -57,3 +58,27 @@ class Director(Base):
         secondary="show_director_associations",
         back_populates="directors",
     )
+
+    def to_dict(self) -> dict:
+        return {
+            "id_": self.id_,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "birth_date": self.birth_date,
+            "bio": self.bio,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+            "is_deleted": self.is_deleted,
+        }
+
+    def to_read_model(self) -> DirectorReadModel:
+        return DirectorReadModel(
+            id_=self.id_,
+            first_name=self.first_name,
+            last_name=self.last_name,
+            birth_date=self.birth_date,
+            bio=self.bio,
+            created_at=self.created_at,
+            updated_at=self.updated_at,
+            is_deleted=self.is_deleted,
+        )

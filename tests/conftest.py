@@ -16,6 +16,10 @@ from app.core.database.postgres.database import get_session
 from tests.dependency_overrides.session import get_session_null_pool
 from app.core.database.postgres.database import null_pool_engine
 from app.core.models.postgres.models import Base
+from tests.factories.director_factories import (
+    DirectorCreateModelFactory,
+    DirectorUpdateModelFactory,
+)
 from tests.factories.movie_factories import (
     MovieCreateModelFactory,
     MovieUpdateModelFactory,
@@ -65,9 +69,12 @@ register_fixture(MovieCreateModelFactory, name="movie_create_model")
 register_fixture(MovieUpdateModelFactory, name="movie_update_model")
 register_fixture(ShowCreateModelFactory, name="show_create_model")
 register_fixture(ShowUpdateModelFactory, name="show_update_model")
+register_fixture(DirectorCreateModelFactory, name="director_create_model")
+register_fixture(DirectorUpdateModelFactory, name="director_update_model")
 pytest_plugins = [
     "tests.fixtures.movie_fixtures",
     "tests.fixtures.show_fixtures",
     "tests.fixtures.season_fixtures",
     "tests.fixtures.episode_fixtures",
+    "tests.fixtures.director_fixtures",
 ]

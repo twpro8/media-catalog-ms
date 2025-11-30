@@ -24,6 +24,7 @@ from app.features.movie.domain.entities.movie_query_model import MovieReadModel
 
 if TYPE_CHECKING:
     from app.features.director.data.models.director import Director
+    from app.features.actor.data.models.actor import Actor
 
 
 class Movie(Base):
@@ -57,6 +58,10 @@ class Movie(Base):
     # Relationships
     directors: Mapped[list["Director"]] = relationship(
         secondary="movie_director_associations",
+        back_populates="movies",
+    )
+    actors: Mapped[list["Actor"]] = relationship(
+        secondary="movie_actor_associations",
         back_populates="movies",
     )
 

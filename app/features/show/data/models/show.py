@@ -25,6 +25,7 @@ from app.features.show.domain.entities.show_query_model import ShowReadModel
 if TYPE_CHECKING:
     from app.features.season.data.models.season import Season
     from app.features.director.data.models.director import Director
+    from app.features.actor.data.models.actor import Actor
 
 
 class Show(Base):
@@ -58,6 +59,10 @@ class Show(Base):
     seasons: Mapped[list["Season"]] = relationship(back_populates="show")
     directors: Mapped[list["Director"]] = relationship(
         secondary="show_director_associations",
+        back_populates="shows",
+    )
+    actors: Mapped[list["Actor"]] = relationship(
+        secondary="show_actor_associations",
         back_populates="shows",
     )
 

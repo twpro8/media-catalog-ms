@@ -43,7 +43,7 @@ class CreateShowUseCaseImpl(CreateShowUseCase):
 
         if existing_show:
             if existing_show.is_deleted:
-                unmarked_show = existing_show.unmark_as_deleted()
+                unmarked_show = existing_show.unmark_entity_as_deleted()
                 created_show = await self.unit_of_work.shows.update(unmarked_show)
             else:
                 raise ShowAlreadyExistsError

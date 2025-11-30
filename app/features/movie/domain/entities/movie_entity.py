@@ -63,7 +63,7 @@ class MovieEntity(object):
 
         return marked_entity
 
-    def unmark_as_deleted(self) -> "MovieEntity":
+    def unmark_entity_as_deleted(self) -> "MovieEntity":
         if not self.is_deleted:
             raise InvalidOperationError("Movie is already unmarked as deleted.")
 

@@ -43,7 +43,7 @@ class CreateMovieUseCaseImpl(CreateMovieUseCase):
 
         if existing_movie:
             if existing_movie.is_deleted:
-                unmarked_movie = existing_movie.unmark_as_deleted()
+                unmarked_movie = existing_movie.unmark_entity_as_deleted()
                 created_movie = await self.unit_of_work.movies.update(unmarked_movie)
             else:
                 raise MovieAlreadyExistsError

@@ -1,7 +1,8 @@
 """
-Update show api router module.
+Update show api route module.
 """
 
+from typing import Annotated
 from uuid import UUID
 
 from fastapi import Depends, status
@@ -14,14 +15,16 @@ from app.features.show.domain.entities.show_query_model import ShowReadModel
 
 
 @router.patch(
-    "/{id_}/",
+    path="/{show_id}",
     response_model=ShowReadModel,
     status_code=status.HTTP_200_OK,
 )
 async def update_show(
-    id_: UUID,
+    show_id: UUID,
     data: ShowUpdateModel,
-    update_show_use_case: UpdateShowUseCase = Depends(get_update_show_use_case),
+    update_show_use_case: Annotated[
+        UpdateShowUseCase, Depends(get_update_show_use_case)
+    ],
 ):
-    show = await update_show_use_case((id_, data))
+    show = await update_show_use_case((show_id, data))
     return show

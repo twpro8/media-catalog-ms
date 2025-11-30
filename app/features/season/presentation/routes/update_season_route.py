@@ -1,7 +1,8 @@
 """
-Update season api router module.
+Update season api route module.
 """
 
+from typing import Annotated
 from uuid import UUID
 
 from fastapi import Depends, status
@@ -14,14 +15,16 @@ from app.features.season.domain.entities.season_query_model import SeasonReadMod
 
 
 @router.patch(
-    "/{id_}/",
+    path="/{season_id}",
     response_model=SeasonReadModel,
     status_code=status.HTTP_200_OK,
 )
 async def update_season(
-    id_: UUID,
+    season_id: UUID,
     data: SeasonUpdateModel,
-    update_season_use_case: UpdateSeasonUseCase = Depends(get_update_season_use_case),
+    update_season_use_case: Annotated[
+        UpdateSeasonUseCase, Depends(get_update_season_use_case)
+    ],
 ):
-    season = await update_season_use_case((id_, data))
+    season = await update_season_use_case((season_id, data))
     return season

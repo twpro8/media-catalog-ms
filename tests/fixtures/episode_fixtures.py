@@ -39,7 +39,7 @@ async def created_episodes(
         )
         request_episode = model.model_dump(mode="json")
 
-        response = await ac.post(url="/v1/episodes/", json=request_episode)
+        response = await ac.post(url="/v1/episodes", json=request_episode)
         assert response.status_code == 201
 
         episodes.append(

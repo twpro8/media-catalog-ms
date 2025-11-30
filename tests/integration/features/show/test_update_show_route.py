@@ -24,7 +24,7 @@ class TestUpdateShow:
         show_update_model: ShowUpdateModelFactory,
         created_shows: list[ShowReadModel],
     ) -> None:
-        self.path = "/v1/shows/"
+        self.path = "/v1/shows"
         self.ac = ac
         self.show_update_model = show_update_model
         self.created_shows = created_shows
@@ -40,7 +40,7 @@ class TestUpdateShow:
         model: ShowUpdateModel = self.show_update_model.build()
         request_show = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_show)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_show)
         assert response.status_code == 200
 
         response_json = response.json()
@@ -72,7 +72,7 @@ class TestUpdateShow:
         request_show = model.model_dump(mode="json")
         request_show |= {field: value}
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_show)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_show)
         assert response.status_code == 422
 
         response_detail = response.json()["detail"]
@@ -92,7 +92,7 @@ class TestUpdateShow:
         model: ShowUpdateModel = self.show_update_model.build()
         request_show = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_show)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_show)
         assert response.status_code == 404
 
         assert "detail" in response.json()
@@ -108,7 +108,7 @@ class TestUpdateShow:
         model = ShowUpdateModel.model_validate(show_1, extra="ignore")
         request_show = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{show_2.id_}/", json=request_show)
+        response = await self.ac.patch(f"{self.path}/{show_2.id_}", json=request_show)
         assert response.status_code == 409
 
         assert "detail" in response.json()

@@ -1,5 +1,5 @@
 """
-Update episode api router module.
+Update episode api route module.
 """
 
 from typing import Annotated
@@ -17,16 +17,16 @@ from app.features.episode.domain.entities.episode_query_model import EpisodeRead
 
 
 @router.patch(
-    "/{id_}/",
+    path="/{episode_id}",
     response_model=EpisodeReadModel,
     status_code=status.HTTP_200_OK,
 )
 async def update_episode(
-    id_: UUID,
+    episode_id: UUID,
     data: EpisodeUpdateModel,
     update_episode_use_case: Annotated[
         UpdateEpisodeUseCase, Depends(get_update_episode_use_case)
     ],
 ):
-    episode = await update_episode_use_case((id_, data))
+    episode = await update_episode_use_case((episode_id, data))
     return episode

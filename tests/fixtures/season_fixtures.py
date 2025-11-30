@@ -32,7 +32,7 @@ async def created_seasons(
         )
         request_user = model.model_dump(mode="json")
 
-        response = await ac.post(url="/v1/seasons/", json=request_user)
+        response = await ac.post(url="/v1/seasons", json=request_user)
         assert response.status_code == 201
 
         seasons.append(

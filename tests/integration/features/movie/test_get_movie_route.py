@@ -21,7 +21,7 @@ class TestGetMovie:
         ac: AsyncClient,
         created_movies: list[MovieReadModel],
     ) -> None:
-        self.path = "/v1/movies/"
+        self.path = "/v1/movies"
         self.ac = ac
         self.created_movies = created_movies
 
@@ -33,7 +33,7 @@ class TestGetMovie:
 
         movie = self.created_movies[0]
 
-        response = await self.ac.get(f"{self.path}{movie.id_}/")
+        response = await self.ac.get(f"{self.path}/{movie.id_}")
         assert response.status_code == 200
 
         response_json = response.json()
@@ -51,7 +51,7 @@ class TestGetMovie:
 
         id_ = uuid7()
 
-        response = await self.ac.get(f"{self.path}{id_}/")
+        response = await self.ac.get(f"{self.path}/{id_}")
         assert response.status_code == 404
 
         assert "detail" in response.json()

@@ -28,7 +28,7 @@ class TestUpdateSeason:
         created_seasons: list[SeasonReadModel],
         season_numbers: Iterator[int],
     ) -> None:
-        self.path = "/v1/seasons/"
+        self.path = "/v1/seasons"
         self.ac = ac
         self.created_seasons = created_seasons
         self.season_numbers = season_numbers
@@ -45,7 +45,7 @@ class TestUpdateSeason:
             "season_number": next(self.season_numbers),
         }
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_season)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_season)
         assert response.status_code == 200
 
         response_json = response.json()
@@ -75,7 +75,7 @@ class TestUpdateSeason:
             field: value,
         }
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_season)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_season)
         assert response.status_code == 422
 
         response_detail = response.json()["detail"]
@@ -96,7 +96,7 @@ class TestUpdateSeason:
             "season_number": next(self.season_numbers),
         }
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_season)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_season)
         assert response.status_code == 404
 
         assert "detail" in response.json()
@@ -113,7 +113,7 @@ class TestUpdateSeason:
         request_season = model.model_dump(mode="json")
 
         response = await self.ac.patch(
-            f"{self.path}{season_2.id_}/", json=request_season
+            f"{self.path}/{season_2.id_}", json=request_season
         )
         assert response.status_code == 409
 

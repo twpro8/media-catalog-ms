@@ -1,7 +1,8 @@
 """
-Create season api router module.
+Create season api route module.
 """
 
+from typing import Annotated
 from fastapi import Response, Request, status, Depends
 
 from app.features.season.presentation.routes.season_router import router
@@ -12,7 +13,7 @@ from app.features.season.dependencies import get_create_season_use_case
 
 
 @router.post(
-    "/",
+    path="",
     response_model=SeasonReadModel,
     status_code=status.HTTP_201_CREATED,
 )
@@ -20,8 +21,10 @@ async def create_season(
     data: SeasonCreateModel,
     response: Response,
     request: Request,
-    create_season_use_case: CreateSeasonUseCase = Depends(get_create_season_use_case),
+    create_season_use_case: Annotated[
+        CreateSeasonUseCase, Depends(get_create_season_use_case)
+    ],
 ):
     season = await create_season_use_case((data,))
-    response.headers["location"] = f"{request.url.path}{season.id_}"
+    response.headers["location"] = f"{request.url.path}/{season.id_}"
     return season

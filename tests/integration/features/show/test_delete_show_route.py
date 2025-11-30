@@ -21,7 +21,7 @@ class TestDeleteShow:
         ac: AsyncClient,
         created_shows: list[ShowReadModel],
     ) -> None:
-        self.path = "/v1/shows/"
+        self.path = "/v1/shows"
         self.ac = ac
         self.created_shows = created_shows
 
@@ -33,7 +33,7 @@ class TestDeleteShow:
 
         show = self.created_shows[run % 2]
 
-        response = await self.ac.delete(f"{self.path}{show.id_}/")
+        response = await self.ac.delete(f"{self.path}/{show.id_}")
         assert response.status_code == 200
 
         response_json = response.json()
@@ -41,7 +41,7 @@ class TestDeleteShow:
 
         assert response_show.is_deleted
 
-        response = await self.ac.get(f"{self.path}{show.id_}/")
+        response = await self.ac.get(f"{self.path}/{show.id_}")
         assert response.status_code == 404
 
     async def test_delete_show_on_conflict(self) -> None:
@@ -51,10 +51,10 @@ class TestDeleteShow:
 
         id_ = self.created_shows[0].id_
 
-        response = await self.ac.delete(f"{self.path}{id_}/")
+        response = await self.ac.delete(f"{self.path}/{id_}")
         assert response.status_code == 200
 
-        response = await self.ac.delete(f"{self.path}{id_}/")
+        response = await self.ac.delete(f"{self.path}/{id_}")
         assert response.status_code == 409
 
         assert "detail" in response.json()
@@ -66,7 +66,7 @@ class TestDeleteShow:
 
         id_ = uuid7()
 
-        response = await self.ac.delete(f"{self.path}{id_}/")
+        response = await self.ac.delete(f"{self.path}/{id_}")
         assert response.status_code == 404
 
         assert "detail" in response.json()

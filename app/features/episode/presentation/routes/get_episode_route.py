@@ -1,5 +1,5 @@
 """
-Get episode api router module.
+Get episode api route module.
 """
 
 from typing import Annotated
@@ -13,13 +13,13 @@ from app.features.episode.dependencies import get_episode_use_case
 
 
 @router.get(
-    "/{id_}/",
+    path="/{episode_id}",
     response_model=EpisodeReadModel,
     status_code=status.HTTP_200_OK,
 )
 async def get_episode(
-    id_: UUID,
+    episode_id: UUID,
     get_episode_use_case: Annotated[GetEpisodeUseCase, Depends(get_episode_use_case)],
 ):
-    episode = await get_episode_use_case((id_,))
+    episode = await get_episode_use_case((episode_id,))
     return episode

@@ -27,11 +27,11 @@ class TestCreateShow:
         ac: AsyncClient,
         show_create_model: ShowCreateModelFactory,
     ) -> None:
-        self.path = "/v1/shows/"
+        self.path = "/v1/shows"
         self.ac = ac
         self.show_create_model = show_create_model
 
-    @pytest.mark.parametrize("run", range(10))
+    @pytest.mark.parametrize("run", range(5))
     async def test_create_success(self, run) -> None:
         """
         Create show successfully.

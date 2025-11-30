@@ -27,7 +27,7 @@ class TestCreateMovie:
         ac: AsyncClient,
         movie_create_model: MovieCreateModelFactory,
     ) -> None:
-        self.path = "/v1/movies/"
+        self.path = "/v1/movies"
         self.ac = ac
         self.movie_create_model = movie_create_model
 

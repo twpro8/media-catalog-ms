@@ -31,7 +31,7 @@ class TestUpdateEpisode:
         created_episodes: list[EpisodeReadModel],
         episode_numbers: Iterator[int],
     ) -> None:
-        self.path = "/v1/episodes/"
+        self.path = "/v1/episodes"
         self.ac = ac
         self.created_episodes = created_episodes
         self.episode_numbers = episode_numbers
@@ -50,7 +50,7 @@ class TestUpdateEpisode:
             "duration": 45,
         }
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_episode)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_episode)
         assert response.status_code == 200
 
         response_json = response.json()
@@ -87,7 +87,7 @@ class TestUpdateEpisode:
             field: value,
         }
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_episode)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_episode)
         assert response.status_code == 422
 
         response_detail = response.json()["detail"]
@@ -110,7 +110,7 @@ class TestUpdateEpisode:
             "duration": 45,
         }
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_episode)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_episode)
         assert response.status_code == 404
 
         assert "detail" in response.json()
@@ -127,7 +127,7 @@ class TestUpdateEpisode:
         request_episode = model.model_dump(mode="json")
 
         response = await self.ac.patch(
-            f"{self.path}{episode_2.id_}/", json=request_episode
+            f"{self.path}/{episode_2.id_}", json=request_episode
         )
         assert response.status_code == 409
 

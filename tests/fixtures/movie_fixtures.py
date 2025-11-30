@@ -22,7 +22,7 @@ async def created_movies(
         model: MovieCreateModel = movie_create_model.build()
         request_user = model.model_dump(mode="json")
 
-        response = await ac.post(url="/v1/movies/", json=request_user)
+        response = await ac.post(url="/v1/movies", json=request_user)
         assert response.status_code == 201
 
         movies.append(

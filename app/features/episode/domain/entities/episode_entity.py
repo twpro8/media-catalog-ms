@@ -64,7 +64,7 @@ class EpisodeEntity(object):
 
         return marked_entity
 
-    def unmark_as_deleted(self) -> "EpisodeEntity":
+    def unmark_entity_as_deleted(self) -> "EpisodeEntity":
         if not self.is_deleted:
             raise InvalidOperationError("Episode is already unmarked as deleted.")
 

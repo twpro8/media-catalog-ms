@@ -1,7 +1,8 @@
 """
-Get show api router module.
+Get show api route module.
 """
 
+from typing import Annotated
 from fastapi import status, Depends
 
 from app.features.show.presentation.routes.show_router import router
@@ -11,12 +12,12 @@ from app.features.show.dependencies import get_shows_use_case
 
 
 @router.get(
-    "/",
+    path="",
     response_model=list[ShowReadModel],
     status_code=status.HTTP_200_OK,
 )
 async def get_shows(
-    get_shows_use_case: GetShowsUseCase = Depends(get_shows_use_case),
+    get_shows_use_case: Annotated[GetShowsUseCase, Depends(get_shows_use_case)],
 ):
     shows = await get_shows_use_case(None)
     return shows

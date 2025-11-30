@@ -61,7 +61,7 @@ class ShowEntity(object):
 
         return marked_entity
 
-    def unmark_as_deleted(self) -> "ShowEntity":
+    def unmark_entity_as_deleted(self) -> "ShowEntity":
         if not self.is_deleted:
             raise InvalidOperationError("Show is already unmarked as deleted.")
 

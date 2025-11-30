@@ -1,5 +1,5 @@
 """
-Create episode api router module.
+Create episode api route module.
 """
 
 from typing import Annotated
@@ -15,7 +15,7 @@ from app.features.episode.dependencies import get_create_episode_use_case
 
 
 @router.post(
-    "/",
+    path="",
     response_model=EpisodeReadModel,
     status_code=status.HTTP_201_CREATED,
 )
@@ -26,7 +26,7 @@ async def create_episode(
     create_episode_use_case: Annotated[
         CreateEpisodeUseCase, Depends(get_create_episode_use_case)
     ],
-) -> EpisodeReadModel:
+):
     episode = await create_episode_use_case((data,))
-    response.headers["location"] = f"{request.url.path}{episode.id_}"
+    response.headers["location"] = f"{request.url.path}/{episode.id_}"
     return episode

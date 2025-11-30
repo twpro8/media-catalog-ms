@@ -19,7 +19,7 @@ class TestGetSeasons:
         ac: AsyncClient,
         created_seasons: list[SeasonReadModel],
     ) -> None:
-        self.path = "/v1/seasons/"
+        self.path = "/v1/seasons"
         self.ac = ac
         self.created_seasons = created_seasons
 

@@ -24,7 +24,7 @@ class TestUpdateMovie:
         movie_update_model: MovieUpdateModelFactory,
         created_movies: list[MovieReadModel],
     ) -> None:
-        self.path = "/v1/movies/"
+        self.path = "/v1/movies"
         self.ac = ac
         self.movie_update_model = movie_update_model
         self.created_movies = created_movies
@@ -40,7 +40,7 @@ class TestUpdateMovie:
         model: MovieUpdateModel = self.movie_update_model.build()
         request_movie = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_movie)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_movie)
         assert response.status_code == 200
 
         response_json = response.json()
@@ -74,7 +74,7 @@ class TestUpdateMovie:
         request_movie = model.model_dump(mode="json")
         request_movie |= {field: value}
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_movie)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_movie)
         assert response.status_code == 422
 
         response_detail = response.json()["detail"]
@@ -94,7 +94,7 @@ class TestUpdateMovie:
         model: MovieUpdateModel = self.movie_update_model.build()
         request_movie = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{id_}/", json=request_movie)
+        response = await self.ac.patch(f"{self.path}/{id_}", json=request_movie)
         assert response.status_code == 404
 
         assert "detail" in response.json()
@@ -110,7 +110,7 @@ class TestUpdateMovie:
         model = MovieUpdateModel.model_validate(movie_1, extra="ignore")
         request_movie = model.model_dump(mode="json")
 
-        response = await self.ac.patch(f"{self.path}{movie_2.id_}/", json=request_movie)
+        response = await self.ac.patch(f"{self.path}/{movie_2.id_}", json=request_movie)
         assert response.status_code == 409
 
         assert "detail" in response.json()

@@ -1,7 +1,8 @@
 """
-Get season api router module.
+Get season api route module.
 """
 
+from typing import Annotated
 from uuid import UUID
 from fastapi import status, Depends
 
@@ -12,13 +13,13 @@ from app.features.season.dependencies import get_season_use_case
 
 
 @router.get(
-    "/{id_}/",
+    path="/{season_id}",
     response_model=SeasonReadModel,
     status_code=status.HTTP_200_OK,
 )
 async def get_season(
-    id_: UUID,
-    get_season_use_case: GetSeasonUseCase = Depends(get_season_use_case),
+    season_id: UUID,
+    get_season_use_case: Annotated[GetSeasonUseCase, Depends(get_season_use_case)],
 ):
-    season = await get_season_use_case((id_,))
+    season = await get_season_use_case((season_id,))
     return season

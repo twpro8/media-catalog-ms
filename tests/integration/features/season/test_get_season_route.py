@@ -21,7 +21,7 @@ class TestGetSeason:
         ac: AsyncClient,
         created_seasons: list[SeasonReadModel],
     ) -> None:
-        self.path = "/v1/seasons/"
+        self.path = "/v1/seasons"
         self.ac = ac
         self.created_seasons = created_seasons
 
@@ -33,7 +33,7 @@ class TestGetSeason:
 
         season = self.created_seasons[0]
 
-        response = await self.ac.get(f"{self.path}{season.id_}/")
+        response = await self.ac.get(f"{self.path}/{season.id_}")
         assert response.status_code == 200
 
         response_json = response.json()
@@ -51,7 +51,7 @@ class TestGetSeason:
 
         id_ = uuid7()
 
-        response = await self.ac.get(f"{self.path}{id_}/")
+        response = await self.ac.get(f"{self.path}/{id_}")
         assert response.status_code == 404
 
         assert "detail" in response.json()

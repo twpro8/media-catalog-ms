@@ -1,5 +1,5 @@
 """
-Get episodes api router module.
+Get episodes api route module.
 """
 
 from typing import Annotated
@@ -12,7 +12,7 @@ from app.features.episode.dependencies import get_episodes_use_case
 
 
 @router.get(
-    "/",
+    path="",
     response_model=list[EpisodeReadModel],
     status_code=status.HTTP_200_OK,
 )

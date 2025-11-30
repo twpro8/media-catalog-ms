@@ -21,7 +21,7 @@ class TestDeleteMovie:
         ac: AsyncClient,
         created_movies: list[MovieReadModel],
     ) -> None:
-        self.path = "/v1/movies/"
+        self.path = "/v1/movies"
         self.ac = ac
         self.created_movies = created_movies
 
@@ -33,7 +33,7 @@ class TestDeleteMovie:
 
         movie = self.created_movies[run % 2]
 
-        response = await self.ac.delete(f"{self.path}{movie.id_}/")
+        response = await self.ac.delete(f"{self.path}/{movie.id_}")
         assert response.status_code == 200
 
         response_json = response.json()
@@ -41,7 +41,7 @@ class TestDeleteMovie:
 
         assert response_movie.is_deleted
 
-        response = await self.ac.get(f"{self.path}{movie.id_}/")
+        response = await self.ac.get(f"{self.path}/{movie.id_}")
         assert response.status_code == 404
 
     async def test_delete_movie_on_conflict(self) -> None:
@@ -51,10 +51,10 @@ class TestDeleteMovie:
 
         id_ = self.created_movies[0].id_
 
-        response = await self.ac.delete(f"{self.path}{id_}/")
+        response = await self.ac.delete(f"{self.path}/{id_}")
         assert response.status_code == 200
 
-        response = await self.ac.delete(f"{self.path}{id_}/")
+        response = await self.ac.delete(f"{self.path}/{id_}")
         assert response.status_code == 409
 
         assert "detail" in response.json()
@@ -66,7 +66,7 @@ class TestDeleteMovie:
 
         id_ = uuid7()
 
-        response = await self.ac.delete(f"{self.path}{id_}/")
+        response = await self.ac.delete(f"{self.path}/{id_}")
         assert response.status_code == 404
 
         assert "detail" in response.json()

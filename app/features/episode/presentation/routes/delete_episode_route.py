@@ -1,5 +1,5 @@
 """
-Delete episode api router module.
+Delete episode api route module.
 """
 
 from typing import Annotated
@@ -14,15 +14,15 @@ from app.features.episode.domain.usecases.delete_episode import DeleteEpisodeUse
 
 
 @router.delete(
-    "/{id_}/",
+    path="/{episode_id}",
     response_model=EpisodeReadModel,
     status_code=status.HTTP_200_OK,
 )
 async def delete_episode(
-    id_: UUID,
+    episode_id: UUID,
     delete_episode_use_case: Annotated[
         DeleteEpisodeUseCase, Depends(get_delete_episode_use_case)
     ],
 ):
-    episode = await delete_episode_use_case((id_,))
+    episode = await delete_episode_use_case((episode_id,))
     return episode

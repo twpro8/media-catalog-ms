@@ -21,7 +21,7 @@ class TestGetShow:
         ac: AsyncClient,
         created_shows: list[ShowReadModel],
     ) -> None:
-        self.path = "/v1/shows/"
+        self.path = "/v1/shows"
         self.ac = ac
         self.created_shows = created_shows
 
@@ -33,7 +33,7 @@ class TestGetShow:
 
         show = self.created_shows[0]
 
-        response = await self.ac.get(f"{self.path}{show.id_}/")
+        response = await self.ac.get(f"{self.path}/{show.id_}")
         assert response.status_code == 200
 
         response_json = response.json()
@@ -51,7 +51,7 @@ class TestGetShow:
 
         id_ = uuid7()
 
-        response = await self.ac.get(f"{self.path}{id_}/")
+        response = await self.ac.get(f"{self.path}/{id_}")
         assert response.status_code == 404
 
         assert "detail" in response.json()

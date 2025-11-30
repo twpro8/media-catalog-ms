@@ -19,7 +19,7 @@ class TestGetShows:
         ac: AsyncClient,
         created_shows: list[ShowReadModel],
     ) -> None:
-        self.path = "/v1/shows/"
+        self.path = "/v1/shows"
         self.ac = ac
         self.created_shows = created_shows
 

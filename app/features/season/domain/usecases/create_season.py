@@ -47,7 +47,7 @@ class CreateSeasonUseCaseImpl(CreateSeasonUseCase):
 
         if existing_season:
             if existing_season.is_deleted:
-                unmarked_season = existing_season.unmark_as_deleted()
+                unmarked_season = existing_season.unmark_entity_as_deleted()
                 created_season = await self.unit_of_work.seasons.update(unmarked_season)
             else:
                 raise SeasonAlreadyExistsError

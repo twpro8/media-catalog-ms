@@ -51,7 +51,7 @@ class CreateEpisodeUseCaseImpl(CreateEpisodeUseCase):
 
         if existing_episode:
             if existing_episode.is_deleted:
-                unmarked_episode = existing_episode.unmark_as_deleted()
+                unmarked_episode = existing_episode.unmark_entity_as_deleted()
                 created_episode = await self.unit_of_work.episodes.update(
                     unmarked_episode
                 )

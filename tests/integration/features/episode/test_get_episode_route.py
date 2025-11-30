@@ -21,7 +21,7 @@ class TestGetEpisode:
         ac: AsyncClient,
         created_episodes: list[EpisodeReadModel],
     ) -> None:
-        self.path = "/v1/episodes/"
+        self.path = "/v1/episodes"
         self.ac = ac
         self.created_episodes = created_episodes
 
@@ -33,7 +33,7 @@ class TestGetEpisode:
 
         episode = self.created_episodes[0]
 
-        response = await self.ac.get(f"{self.path}{episode.id_}/")
+        response = await self.ac.get(f"{self.path}/{episode.id_}")
         assert response.status_code == 200
 
         response_json = response.json()
@@ -51,7 +51,7 @@ class TestGetEpisode:
 
         id_ = uuid7()
 
-        response = await self.ac.get(f"{self.path}{id_}/")
+        response = await self.ac.get(f"{self.path}/{id_}")
         assert response.status_code == 404
 
         assert "detail" in response.json()

@@ -29,7 +29,7 @@ class TestCreateEpisode:
         created_seasons: list[SeasonReadModel],
         episode_numbers: Iterator[int],
     ) -> None:
-        self.path = "/v1/episodes/"
+        self.path = "/v1/episodes"
         self.ac = ac
         self.episode_numbers = episode_numbers
         self.created_seasons = created_seasons

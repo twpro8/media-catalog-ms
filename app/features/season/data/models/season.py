@@ -2,12 +2,13 @@
 Season orm model module.
 """
 
+from datetime import datetime
 from uuid import UUID
 from typing import TYPE_CHECKING
 
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import UniqueConstraint, ForeignKey, String
+from sqlalchemy import UniqueConstraint, ForeignKey, String, text, DateTime, Boolean
 
 from app.core.models.postgres.models import Base
 from app.features.season.domain.entities.season_query_model import SeasonReadModel
@@ -27,12 +28,27 @@ class Season(Base):
         ),
     )
 
+    id_: Mapped[UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("uuidv7()"),
+    )
     show_id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),
         ForeignKey("shows.id_", ondelete="CASCADE"),
     )
     title: Mapped[str] = mapped_column(String(length=256))
     season_number: Mapped[int]
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("TIMEZONE('UTC', now())"),
+    )
+    # Add a trigger on update updated_at for this entity.
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("TIMEZONE('UTC', now())"),
+    )
+    is_deleted: Mapped[bool] = mapped_column(Boolean, default=False)
 
     # Relationships
     show: Mapped["Show"] = relationship(back_populates="seasons")

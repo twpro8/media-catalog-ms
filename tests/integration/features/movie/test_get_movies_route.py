@@ -19,7 +19,7 @@ class TestGetMovies:
         ac: AsyncClient,
         created_movies: list[MovieReadModel],
     ) -> None:
-        self.path = "/v1/movies/"
+        self.path = "/v1/movies"
         self.ac = ac
         self.created_movies = created_movies
 

@@ -1,7 +1,8 @@
 """
-Get movie api router module.
+Get movie api route module.
 """
 
+from typing import Annotated
 from uuid import UUID
 from fastapi import status, Depends
 
@@ -12,13 +13,13 @@ from app.features.movie.dependencies import get_movie_use_case
 
 
 @router.get(
-    "/{id_}/",
+    path="/{movie_id}",
     response_model=MovieReadModel,
     status_code=status.HTTP_200_OK,
 )
 async def get_movie(
-    id_: UUID,
-    get_movie_use_case: GetMovieUseCase = Depends(get_movie_use_case),
+    movie_id: UUID,
+    get_movie_use_case: Annotated[GetMovieUseCase, Depends(get_movie_use_case)],
 ):
-    movie = await get_movie_use_case((id_,))
+    movie = await get_movie_use_case((movie_id,))
     return movie

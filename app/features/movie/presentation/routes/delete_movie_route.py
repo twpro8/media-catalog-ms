@@ -1,7 +1,8 @@
 """
-Delete movie api router module.
+Delete movie api route module.
 """
 
+from typing import Annotated
 from uuid import UUID
 
 from fastapi import status, Depends
@@ -13,13 +14,15 @@ from app.features.movie.domain.usecases.delete_movie import DeleteMovieUseCase
 
 
 @router.delete(
-    "/{id_}/",
+    path="/{movie_id}",
     response_model=MovieReadModel,
     status_code=status.HTTP_200_OK,
 )
 async def delete_movie(
-    id_: UUID,
-    delete_movie_use_case: DeleteMovieUseCase = Depends(get_delete_movie_use_case),
+    movie_id: UUID,
+    delete_movie_use_case: Annotated[
+        DeleteMovieUseCase, Depends(get_delete_movie_use_case)
+    ],
 ):
-    movie = await delete_movie_use_case((id_,))
+    movie = await delete_movie_use_case((movie_id,))
     return movie

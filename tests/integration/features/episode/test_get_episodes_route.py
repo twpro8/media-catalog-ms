@@ -19,7 +19,7 @@ class TestGetEpisodes:
         ac: AsyncClient,
         created_episodes: list[EpisodeReadModel],
     ) -> None:
-        self.path = "/v1/episodes/"
+        self.path = "/v1/episodes"
         self.ac = ac
         self.created_episodes = created_episodes
 

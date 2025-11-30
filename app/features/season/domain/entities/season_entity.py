@@ -60,7 +60,7 @@ class SeasonEntity(object):
 
         return marked_entity
 
-    def unmark_as_deleted(self) -> "SeasonEntity":
+    def unmark_entity_as_deleted(self) -> "SeasonEntity":
         if not self.is_deleted:
             raise InvalidOperationError("Season is already unmarked as deleted.")
 

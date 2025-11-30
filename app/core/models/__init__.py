@@ -5,6 +5,9 @@ from app.features.episode.data.models.episode import Episode
 from app.features.director.data.models.director import Director
 from app.features.director.data.models.movie_director import MovieDirector
 from app.features.director.data.models.show_director import ShowDirector
+from app.features.actor.data.models.actor import Actor
+from app.features.actor.data.models.movie_actor import MovieActor
+from app.features.actor.data.models.show_actor import ShowActor
 
 __all__ = [
     "Movie",
@@ -14,4 +17,7 @@ __all__ = [
     "Director",
     "MovieDirector",
     "ShowDirector",
+    "Actor",
+    "MovieActor",
+    "ShowActor",
 ]

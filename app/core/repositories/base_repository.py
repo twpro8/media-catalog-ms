@@ -19,6 +19,9 @@ class BaseRepository[_T](ABC):
     async def findall(self) -> Sequence[_T]: ...
 
     @abstractmethod
+    async def find_one(self, **filter_by) -> _T | None: ...
+
+    @abstractmethod
     async def find_by_id(self, id_: UUID) -> _T | None: ...
 
     @abstractmethod

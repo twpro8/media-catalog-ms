@@ -35,6 +35,11 @@ class SQLAlchemyRepository[TModel: Base, TEntity]:
         result = await self.session.execute(query)
         return [self.mapper.to_entity(obj) for obj in result.scalars().all()]
 
+    async def find_one(self, **filter_by) -> TEntity | None:
+        query = select(self.model).filter_by(**filter_by)
+        result = (await self.session.execute(query)).scalar_one_or_none()
+        return self.mapper.to_entity(result) if result else None
+
     async def find_by_id(self, id_) -> TEntity | None:
         result = await self.session.get(self.model, id_)
         return self.mapper.to_entity(result) if result else None

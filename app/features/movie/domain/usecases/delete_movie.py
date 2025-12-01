@@ -7,7 +7,10 @@ from typing import cast
 from uuid import UUID
 
 from app.core.error.invalid_operation_exception import InvalidOperationError
-from app.core.error.movie_exception import MovieAlreadyDeletedError, MovieNotFoundError
+from app.features.movie.domain.exceptions import (
+    MovieNotFoundError,
+    MovieAlreadyDeletedError,
+)
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.movie.domain.entities.movie_entity import MovieEntity
 from app.features.movie.domain.entities.movie_query_model import MovieReadModel

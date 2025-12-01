@@ -7,7 +7,10 @@ from typing import cast
 from uuid import UUID
 
 from app.core.error.invalid_operation_exception import InvalidOperationError
-from app.core.error.show_exception import ShowAlreadyDeletedError, ShowNotFoundError
+from app.features.show.domain.exceptions import (
+    ShowNotFoundError,
+    ShowAlreadyDeletedError,
+)
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.show.domain.entities.show_entity import ShowEntity
 from app.features.show.domain.entities.show_query_model import ShowReadModel

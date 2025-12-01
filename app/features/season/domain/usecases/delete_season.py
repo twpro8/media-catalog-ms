@@ -7,9 +7,9 @@ from typing import cast
 from uuid import UUID
 
 from app.core.error.invalid_operation_exception import InvalidOperationError
-from app.core.error.season_exception import (
-    SeasonAlreadyDeletedError,
+from app.features.season.domain.exceptions import (
     SeasonNotFoundError,
+    SeasonAlreadyDeletedError,
 )
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.season.domain.entities.season_entity import SeasonEntity

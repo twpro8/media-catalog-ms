@@ -8,7 +8,7 @@ from sqlalchemy import select
 from sqlalchemy.exc import NoResultFound, IntegrityError
 
 from app.core.error.base_exception import BaseError
-from app.core.error.season_exception import (
+from app.features.season.domain.exceptions import (
     SeasonNotFoundError,
     SeasonAlreadyExistsError,
 )

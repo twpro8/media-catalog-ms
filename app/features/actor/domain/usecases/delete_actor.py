@@ -7,9 +7,9 @@ from typing import cast
 from uuid import UUID
 
 from app.core.error.invalid_operation_exception import InvalidOperationError
-from app.core.error.actor_exception import (
-    ActorAlreadyDeletedError,
+from app.features.actor.domain.exceptions import (
     ActorNotFoundError,
+    ActorAlreadyDeletedError,
 )
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.actor.domain.entities.actor_entity import ActorEntity

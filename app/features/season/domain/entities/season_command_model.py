@@ -4,7 +4,7 @@ Season command model module.
 
 from pydantic import BaseModel, ConfigDict, model_validator, Field
 
-from app.core.error.validation_error import FieldRequiredError
+from app.core.error.validation_exception import FieldRequiredError
 from app.features.season.domain.entities.season_common_model import SeasonBaseModel
 
 

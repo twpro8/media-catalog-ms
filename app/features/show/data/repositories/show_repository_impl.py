@@ -7,7 +7,10 @@ from sqlalchemy import select
 from sqlalchemy.exc import NoResultFound, IntegrityError
 
 from app.core.error.base_exception import BaseError
-from app.core.error.show_exception import ShowNotFoundError, ShowAlreadyExistsError
+from app.features.show.domain.exceptions import (
+    ShowNotFoundError,
+    ShowAlreadyExistsError,
+)
 from app.core.repositories.sqlalchemy.repository import SQLAlchemyRepository
 from app.features.show.data.mappers.show_data_mapper import ShowDataMapper
 from app.features.show.domain.repositories.show_repository import ShowRepository

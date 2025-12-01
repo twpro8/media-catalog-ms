@@ -5,9 +5,9 @@ Actor repository implementation module.
 from sqlalchemy.exc import NoResultFound, IntegrityError
 
 from app.core.error.base_exception import BaseError
-from app.core.error.actor_exception import (
-    ActorAlreadyExistsError,
+from app.features.actor.domain.exceptions import (
     ActorNotFoundError,
+    ActorAlreadyExistsError,
 )
 from app.core.repositories.sqlalchemy.repository import SQLAlchemyRepository
 from app.features.actor.data.mappers.actor_data_mapper import ActorDataMapper

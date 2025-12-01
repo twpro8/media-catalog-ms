@@ -6,7 +6,7 @@ from abc import abstractmethod
 from typing import cast
 from uuid import UUID
 
-from app.core.error.episode_exception import EpisodeNotFoundError
+from app.features.episode.domain.exceptions import EpisodeNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.episode.domain.entities.episode_command_model import (
     EpisodeUpdateModel,

@@ -5,7 +5,7 @@ Create actor use case module.
 from abc import abstractmethod
 from typing import cast
 
-from app.core.error.actor_exception import ActorAlreadyExistsError
+from app.features.actor.domain.exceptions import ActorAlreadyExistsError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.actor.domain.entities.actor_entity import ActorEntity
 from app.features.actor.domain.entities.actor_command_model import (

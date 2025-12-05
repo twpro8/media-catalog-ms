@@ -3,6 +3,7 @@ Main module.
 """
 
 from contextlib import asynccontextmanager
+from typing import Sequence
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
@@ -42,10 +43,11 @@ async def lifespan(app: FastAPI):
     # shutdown
 
 
-def _setup_middleware(app: FastAPI):
+def _setup_middleware(app: FastAPI, origins: Sequence[str]):
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=origins,
+        allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
@@ -77,7 +79,7 @@ def create_app() -> FastAPI:
         version=settings.APP_VERSION,
         lifespan=lifespan,
     )
-    _setup_middleware(app)
+    _setup_middleware(app, settings.ALLOWED_ORIGINS)
     _setup_exception_handlers(app)
     _setup_routes(app)
 

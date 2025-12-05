@@ -243,6 +243,7 @@ dependencies = [
     { name = "fastapi" },
     { name = "greenlet" },
     { name = "itsdangerous" },
+    { name = "pycountry" },
     { name = "pydantic-settings" },
     { name = "sqlalchemy" },
     { name = "uvicorn" },
@@ -266,6 +267,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.121.0" },
     { name = "greenlet", specifier = ">=3.2.4" },
     { name = "itsdangerous", specifier = ">=2.2.0" },
+    { name = "pycountry", specifier = ">=24.6.1" },
     { name = "pydantic-settings", specifier = ">=2.11.0" },
     { name = "sqlalchemy", specifier = ">=2.0.44" },
     { name = "uvicorn", specifier = ">=0.38.0" },
@@ -320,6 +322,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c4/74/193e3035e33adcb88399bb89fcb57578c15ea3060a085c5fff10e2fcd162/polyfactory-2.22.4.tar.gz", hash = "sha256:e63a5a55e8363830dfd71c0bcfc1651a29d9fc98048b54c8333de1971dc98547", size = 264413, upload-time = "2025-11-10T16:03:37.152Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/0b/12/95b5e48b07378df89be9f56e1bdc4fcc98928e2f4e7f5f38b3e8e479deb9/polyfactory-2.22.4-py3-none-any.whl", hash = "sha256:6c4ebe24e16e7e8461bdd56dfd7d4df3172936a5077c5e5d3b101a5517f267dc", size = 63888, upload-time = "2025-11-10T16:03:35.897Z" },
+]
+
+[[package]]
+name = "pycountry"
+version = "24.6.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/76/57/c389fa68c50590881a75b7883eeb3dc15e9e73a0fdc001cdd45c13290c92/pycountry-24.6.1.tar.gz", hash = "sha256:b61b3faccea67f87d10c1f2b0fc0be714409e8fcdcc1315613174f6466c10221", size = 6043910, upload-time = "2024-06-01T04:12:15.05Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b1/ec/1fb891d8a2660716aadb2143235481d15ed1cbfe3ad669194690b0604492/pycountry-24.6.1-py3-none-any.whl", hash = "sha256:f1a4fb391cd7214f8eefd39556d740adcc233c778a27f8942c8dca351d6ce06f", size = 6335189, upload-time = "2024-06-01T04:11:49.711Z" },
 ]
 
 [[package]]

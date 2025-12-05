@@ -8,6 +8,8 @@ from app.features.director.data.models.show_director import ShowDirector
 from app.features.actor.data.models.actor import Actor
 from app.features.actor.data.models.movie_actor import MovieActor
 from app.features.actor.data.models.show_actor import ShowActor
+from app.features.reference.data.modles.coutry import Country
+from app.features.reference.data.modles.language import Language
 
 __all__ = [
     "Movie",
@@ -20,4 +22,6 @@ __all__ = [
     "Actor",
     "MovieActor",
     "ShowActor",
+    "Country",
+    "Language",
 ]

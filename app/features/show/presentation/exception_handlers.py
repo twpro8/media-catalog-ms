@@ -15,7 +15,7 @@ from app.features.show.domain.exceptions import (
 
 def register_show_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(ShowNotFoundError)
-    async def show_not_active_handler(
+    async def show_not_found_handler(
         request: Request,
         exc: ShowNotFoundError,
     ) -> JSONResponse:

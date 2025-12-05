@@ -15,7 +15,7 @@ from app.features.episode.domain.exceptions import (
 
 def register_episode_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(EpisodeNotFoundError)
-    async def episode_not_active_handler(
+    async def episode_not_found_handler(
         request: Request,
         exc: EpisodeNotFoundError,
     ) -> JSONResponse:

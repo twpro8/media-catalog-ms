@@ -12,7 +12,7 @@ from app.core.error.validation_exception import FieldRequiredError
 
 def register_base_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(FieldRequiredError)
-    async def show_not_active_handler(
+    async def field_required_handler(
         request: Request,
         exc: FieldRequiredError,
     ) -> JSONResponse:

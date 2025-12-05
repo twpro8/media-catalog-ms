@@ -15,7 +15,7 @@ from app.features.actor.domain.exceptions import (
 
 def register_actor_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(ActorNotFoundError)
-    async def actor_not_active_handler(
+    async def actor_not_found_handler(
         request: Request,
         exc: ActorNotFoundError,
     ) -> JSONResponse:

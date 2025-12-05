@@ -15,7 +15,7 @@ from app.features.season.domain.exceptions import (
 
 def register_season_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(SeasonNotFoundError)
-    async def season_not_active_handler(
+    async def season_not_found_handler(
         request: Request,
         exc: SeasonNotFoundError,
     ) -> JSONResponse:

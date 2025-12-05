@@ -15,7 +15,7 @@ from app.features.director.domain.exceptions import (
 
 def register_director_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(DirectorNotFoundError)
-    async def director_not_active_handler(
+    async def director_not_found_handler(
         request: Request,
         exc: DirectorNotFoundError,
     ) -> JSONResponse:

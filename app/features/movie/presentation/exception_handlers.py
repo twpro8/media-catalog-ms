@@ -15,7 +15,7 @@ from app.features.movie.domain.exceptions import (
 
 def register_movie_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(MovieNotFoundError)
-    async def movie_not_active_handler(
+    async def movie_not_found_handler(
         request: Request,
         exc: MovieNotFoundError,
     ) -> JSONResponse:

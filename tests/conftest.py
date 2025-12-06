@@ -84,4 +84,6 @@ pytest_plugins = [
     "tests.fixtures.episode_fixtures",
     "tests.fixtures.director_fixtures",
     "tests.fixtures.actor_fixtures",
+    "tests.fixtures.country_fixtures",
+    "tests.fixtures.language_fixtures",
 ]

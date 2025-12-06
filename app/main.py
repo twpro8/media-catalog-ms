@@ -35,6 +35,7 @@ from app.features.show.presentation.routes import show_router
 from app.features.season.presentation.routes import season_router
 from app.features.episode.presentation.routes import episode_router
 from app.features.reference.presentation.routes.language import language_router
+from app.features.reference.presentation.routes.country import country_router
 
 
 @asynccontextmanager
@@ -72,6 +73,7 @@ def _setup_routes(app: FastAPI):
     app.include_router(director_router)
     app.include_router(actor_router)
     app.include_router(language_router)
+    app.include_router(country_router)
 
 
 def create_app() -> FastAPI:

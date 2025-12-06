@@ -8,7 +8,7 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from app.features.reference.domain.services.language.language_query_service import (
+from app.features.reference.domain.services.language_query_service import (
     LanguageQueryService,
 )
 from app.features.reference.domain.entities.language.language_query_model import (
@@ -29,7 +29,7 @@ class LanguageQueryServiceImpl(LanguageQueryService):
         raise NotImplementedError
 
     async def find_by_code(self, code: str) -> LanguageReadModel | None:
-        result = await self.session.get(Language, code)
+        result: Language | None = await self.session.get(Language, code)
 
         if result is None:
             return None

@@ -4,7 +4,10 @@ Country entity module.
 
 import copy
 
-from app.core.error.invalid_operation_exception import InvalidOperationError
+from app.features.reference.domain.exceptions.country_error import (
+    CountryAlreadyActiveError,
+    CountryAlreadyInactiveError,
+)
 
 
 class CountryEntity(object):
@@ -24,7 +27,7 @@ class CountryEntity(object):
 
     def mark_entity_as_active(self) -> "CountryEntity":
         if self.active:
-            raise InvalidOperationError("Country is already marked as active")
+            raise CountryAlreadyActiveError
 
         marked_entity = copy.deepcopy(self)
         marked_entity.active = True
@@ -33,7 +36,7 @@ class CountryEntity(object):
 
     def mark_entity_as_inactive(self) -> "CountryEntity":
         if not self.active:
-            raise InvalidOperationError("Country is already unmarked as inactive.")
+            raise CountryAlreadyInactiveError
 
         marked_entity = copy.deepcopy(self)
         marked_entity.active = False

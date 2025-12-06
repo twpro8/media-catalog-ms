@@ -4,7 +4,10 @@ Language entity module.
 
 import copy
 
-from app.core.error.invalid_operation_exception import InvalidOperationError
+from app.features.reference.domain.exceptions.language_error import (
+    LanguageAlreadyActiveError,
+    LanguageAlreadyInactiveError,
+)
 
 
 class LanguageEntity(object):
@@ -24,7 +27,7 @@ class LanguageEntity(object):
 
     def mark_entity_as_active(self) -> "LanguageEntity":
         if self.active:
-            raise InvalidOperationError("Language is already marked as active")
+            raise LanguageAlreadyActiveError
 
         marked_entity = copy.deepcopy(self)
         marked_entity.active = True
@@ -33,7 +36,7 @@ class LanguageEntity(object):
 
     def mark_entity_as_inactive(self) -> "LanguageEntity":
         if not self.active:
-            raise InvalidOperationError("Language is already unmarked as inactive.")
+            raise LanguageAlreadyInactiveError
 
         marked_entity = copy.deepcopy(self)
         marked_entity.active = False

@@ -23,6 +23,7 @@ class TestGetCountries:
             {
                 "code": country.alpha_2,  # type: ignore
                 "name": country.name,  # type: ignore
+                "active": True,
             }
             for country in pycountry.countries
         ]

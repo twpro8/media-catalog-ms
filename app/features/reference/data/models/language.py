@@ -36,4 +36,4 @@ class Language(Base):
         }
 
     def to_read_model(self) -> LanguageReadModel:
-        return LanguageReadModel(code=self.code, name=self.name)
+        return LanguageReadModel(code=self.code, name=self.name, active=self.active)

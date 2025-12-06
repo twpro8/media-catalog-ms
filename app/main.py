@@ -25,6 +25,10 @@ from app.features.movie.presentation.exception_handlers import (
     register_movie_exception_handlers,
 )
 from app.features.movie.presentation.routes import movie_router
+from app.features.reference.presentation.exception_handlers import (
+    register_country_exception_handlers,
+    register_language_exception_handlers,
+)
 from app.features.season.presentation.exception_handlers import (
     register_season_exception_handlers,
 )
@@ -63,6 +67,8 @@ def _setup_exception_handlers(app: FastAPI):
     register_episode_exception_handlers(app)
     register_director_exception_handlers(app)
     register_actor_exception_handlers(app)
+    register_country_exception_handlers(app)
+    register_language_exception_handlers(app)
 
 
 def _setup_routes(app: FastAPI):

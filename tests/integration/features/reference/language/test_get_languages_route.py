@@ -23,6 +23,7 @@ class TestGetLanguages:
             {
                 "code": language.alpha_2,  # type: ignore
                 "name": language.name,  # type: ignore
+                "active": True,
             }
             for language in pycountry.languages
             if hasattr(language, "alpha_2")

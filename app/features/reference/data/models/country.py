@@ -36,4 +36,4 @@ class Country(Base):
         }
 
     def to_read_model(self) -> CountryReadModel:
-        return CountryReadModel(code=self.code, name=self.name)
+        return CountryReadModel(code=self.code, name=self.name, active=self.active)

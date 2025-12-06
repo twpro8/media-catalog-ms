@@ -8,7 +8,7 @@ from app.core.use_cases.use_case import BaseUseCase
 from app.features.reference.domain.entities.country.country_query_model import (
     CountryReadModel,
 )
-from app.features.reference.domain.services.country.country_query_service import (
+from app.features.reference.domain.services.country_query_service import (
     CountryQueryService,
 )
 
@@ -29,7 +29,7 @@ class GetCountriesUseCaseImpl(GetCountriesUseCase):
     """
 
     def __init__(self, service: CountryQueryService):
-        self.service: CountryQueryService = service
+        self.service = service
 
     async def __call__(self, args: None) -> Sequence[CountryReadModel]:
         countries = await self.service.findall()

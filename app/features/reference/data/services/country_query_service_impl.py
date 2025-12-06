@@ -8,7 +8,7 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from app.features.reference.domain.services.country.country_query_service import (
+from app.features.reference.domain.services.country_query_service import (
     CountryQueryService,
 )
 from app.features.reference.domain.entities.country.country_query_model import (
@@ -29,7 +29,7 @@ class CountryQueryServiceImpl(CountryQueryService):
         raise NotImplementedError
 
     async def find_by_code(self, code: str) -> CountryReadModel | None:
-        result = await self.session.get(Country, code)
+        result: Country | None = await self.session.get(Country, code)
 
         if result is None:
             return None

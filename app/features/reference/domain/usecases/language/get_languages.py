@@ -8,7 +8,7 @@ from app.core.use_cases.use_case import BaseUseCase
 from app.features.reference.domain.entities.language.language_query_model import (
     LanguageReadModel,
 )
-from app.features.reference.domain.services.language.language_query_service import (
+from app.features.reference.domain.services.language_query_service import (
     LanguageQueryService,
 )
 
@@ -29,7 +29,7 @@ class GetLanguagesUseCaseImpl(GetLanguagesUseCase):
     """
 
     def __init__(self, service: LanguageQueryService):
-        self.service: LanguageQueryService = service
+        self.service = service
 
     async def __call__(self, args: None) -> Sequence[LanguageReadModel]:
         languages = await self.service.findall()

@@ -17,8 +17,16 @@ class CountryReadModel(CountryBaseModel):
     CountryReadModel represents data structure as a read model
     """
 
+    active: bool
+
     model_config = ConfigDict(from_attributes=True)
 
     @staticmethod
     def from_entity(entity: CountryEntity) -> "CountryReadModel":
-        return CountryReadModel(code=entity.code, name=entity.name)
+        assert entity.active is not None
+
+        return CountryReadModel(
+            code=entity.code,
+            name=entity.name,
+            active=entity.active,
+        )

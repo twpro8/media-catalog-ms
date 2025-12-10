@@ -5,8 +5,8 @@ Create season use case module.
 from abc import abstractmethod
 from typing import cast
 
-from app.core.error.season_exception import SeasonAlreadyExistsError
-from app.core.error.show_exception import ShowNotFoundError
+from app.features.season.domain.exceptions import SeasonAlreadyExistsError
+from app.features.show.domain.exceptions import ShowNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.season.domain.entities.season_entity import SeasonEntity
 from app.features.season.domain.entities.season_command_model import SeasonCreateModel

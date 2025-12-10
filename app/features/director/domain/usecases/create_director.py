@@ -5,7 +5,7 @@ Create director use case module.
 from abc import abstractmethod
 from typing import cast
 
-from app.core.error.director_exception import DirectorAlreadyExistsError
+from app.features.director.domain.exceptions import DirectorAlreadyExistsError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.director.domain.entities.director_entity import DirectorEntity
 from app.features.director.domain.entities.director_command_model import (

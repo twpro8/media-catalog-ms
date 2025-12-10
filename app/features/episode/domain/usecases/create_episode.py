@@ -5,8 +5,8 @@ Create episode use case module.
 from abc import abstractmethod
 from typing import cast
 
-from app.core.error.episode_exception import EpisodeAlreadyExistsError
-from app.core.error.season_exception import SeasonNotFoundError
+from app.features.episode.domain.exceptions import EpisodeAlreadyExistsError
+from app.features.season.domain.exceptions import SeasonNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.episode.domain.entities.episode_entity import EpisodeEntity
 from app.features.episode.domain.entities.episode_command_model import (

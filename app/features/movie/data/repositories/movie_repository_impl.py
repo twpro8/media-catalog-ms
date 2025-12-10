@@ -8,7 +8,10 @@ from sqlalchemy import select
 from sqlalchemy.exc import NoResultFound, IntegrityError
 
 from app.core.error.base_exception import BaseError
-from app.core.error.movie_exception import MovieAlreadyExistsError, MovieNotFoundError
+from app.features.movie.domain.exceptions import (
+    MovieNotFoundError,
+    MovieAlreadyExistsError,
+)
 from app.core.repositories.sqlalchemy.repository import SQLAlchemyRepository
 from app.features.movie.data.mappers.movie_data_mapper import MovieDataMapper
 from app.features.movie.domain.repositories.movie_repository import MovieRepository

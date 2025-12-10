@@ -5,9 +5,9 @@ Director repository implementation module.
 from sqlalchemy.exc import NoResultFound, IntegrityError
 
 from app.core.error.base_exception import BaseError
-from app.core.error.director_exception import (
-    DirectorAlreadyExistsError,
+from app.features.director.domain.exceptions import (
     DirectorNotFoundError,
+    DirectorAlreadyExistsError,
 )
 from app.core.repositories.sqlalchemy.repository import SQLAlchemyRepository
 from app.features.director.data.mappers.director_data_mapper import DirectorDataMapper

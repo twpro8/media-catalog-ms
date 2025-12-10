@@ -5,7 +5,7 @@ Create movie use case module.
 from abc import abstractmethod
 from typing import cast
 
-from app.core.error.movie_exception import MovieAlreadyExistsError
+from app.features.movie.domain.exceptions import MovieAlreadyExistsError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.movie.domain.entities.movie_entity import MovieEntity
 from app.features.movie.domain.entities.movie_command_model import MovieCreateModel

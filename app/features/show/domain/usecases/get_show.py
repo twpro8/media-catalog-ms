@@ -5,7 +5,7 @@ Get show use case module.
 from abc import abstractmethod
 from uuid import UUID
 
-from app.core.error.show_exception import ShowNotFoundError
+from app.features.show.domain.exceptions import ShowNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.show.domain.entities.show_query_model import ShowReadModel
 from app.features.show.domain.services.show_query_service import ShowQueryService

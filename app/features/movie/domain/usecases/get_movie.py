@@ -5,7 +5,7 @@ Get movie use case module.
 from abc import abstractmethod
 from uuid import UUID
 
-from app.core.error.movie_exception import MovieNotFoundError
+from app.features.movie.domain.exceptions import MovieNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.movie.domain.entities.movie_query_model import MovieReadModel
 from app.features.movie.domain.services.movie_query_service import MovieQueryService

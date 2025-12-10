@@ -5,7 +5,7 @@ Create show use case module.
 from abc import abstractmethod
 from typing import cast
 
-from app.core.error.show_exception import ShowAlreadyExistsError
+from app.features.show.domain.exceptions import ShowAlreadyExistsError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.show.domain.entities.show_entity import ShowEntity
 from app.features.show.domain.entities.show_command_model import ShowCreateModel

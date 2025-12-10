@@ -78,10 +78,13 @@ register_fixture(DirectorUpdateModelFactory, name="director_update_model")
 register_fixture(ActorCreateModelFactory, name="actor_create_model")
 register_fixture(ActorUpdateModelFactory, name="actor_update_model")
 pytest_plugins = [
+    "tests.fixtures.database_fixtures",
     "tests.fixtures.movie_fixtures",
     "tests.fixtures.show_fixtures",
     "tests.fixtures.season_fixtures",
     "tests.fixtures.episode_fixtures",
     "tests.fixtures.director_fixtures",
     "tests.fixtures.actor_fixtures",
+    "tests.fixtures.country_fixtures",
+    "tests.fixtures.language_fixtures",
 ]

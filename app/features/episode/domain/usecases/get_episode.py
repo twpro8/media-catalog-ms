@@ -5,7 +5,7 @@ Get episode use case module.
 from abc import abstractmethod
 from uuid import UUID
 
-from app.core.error.episode_exception import EpisodeNotFoundError
+from app.features.episode.domain.exceptions import EpisodeNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.episode.domain.entities.episode_query_model import EpisodeReadModel
 from app.features.episode.domain.services.episode_query_service import (

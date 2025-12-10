@@ -6,7 +6,7 @@ from abc import abstractmethod
 from typing import cast
 from uuid import UUID
 
-from app.core.error.show_exception import ShowNotFoundError
+from app.features.show.domain.exceptions import ShowNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.show.domain.entities.show_command_model import ShowUpdateModel
 from app.features.show.domain.entities.show_entity import ShowEntity

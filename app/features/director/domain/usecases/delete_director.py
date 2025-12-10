@@ -7,9 +7,9 @@ from typing import cast
 from uuid import UUID
 
 from app.core.error.invalid_operation_exception import InvalidOperationError
-from app.core.error.director_exception import (
-    DirectorAlreadyDeletedError,
+from app.features.director.domain.exceptions import (
     DirectorNotFoundError,
+    DirectorAlreadyDeletedError,
 )
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.director.domain.entities.director_entity import DirectorEntity

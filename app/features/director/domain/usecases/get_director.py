@@ -5,7 +5,7 @@ Get director use case module.
 from abc import abstractmethod
 from uuid import UUID
 
-from app.core.error.director_exception import DirectorNotFoundError
+from app.features.director.domain.exceptions import DirectorNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.director.domain.entities.director_query_model import DirectorReadModel
 from app.features.director.domain.services.director_query_service import (

@@ -6,7 +6,7 @@ from datetime import date
 
 from pydantic import BaseModel, Field, ConfigDict, model_validator
 
-from app.core.error.validation_error import FieldRequiredError
+from app.core.error.validation_exception import FieldRequiredError
 from app.features.episode.domain.entities.episode_common_model import EpisodeBaseModel
 
 

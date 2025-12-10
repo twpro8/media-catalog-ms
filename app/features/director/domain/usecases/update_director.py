@@ -6,7 +6,7 @@ from abc import abstractmethod
 from typing import cast
 from uuid import UUID
 
-from app.core.error.director_exception import DirectorNotFoundError
+from app.features.director.domain.exceptions import DirectorNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.director.domain.entities.director_command_model import (
     DirectorUpdateModel,

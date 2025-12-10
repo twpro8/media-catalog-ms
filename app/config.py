@@ -14,7 +14,10 @@ class Settings(BaseSettings):
     MODE: Literal["TEST", "LOCAL", "DEV", "PROD"]
     LOG_LEVEL: Literal["DEBUG", "INFO", "WARN", "ERROR"]
 
+    ALLOWED_ORIGINS: list[str]
+
     APP_NAME: str = "Rest API"
+    APP_VERSION: str = "0.1.0"
 
     DB_HOST: str
     DB_PORT: int
